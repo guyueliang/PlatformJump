@@ -208,7 +208,7 @@ public class Koala extends BaseActor{
             //drawer.line(0,0,300,300);
             //drawer.setColor(Color.BROWN);
            // drawer.line(350,250,490,780);
-            drawer.polygon(polygon_vertices);
+            //drawer.polygon(polygon_vertices);
         }
     }
 
