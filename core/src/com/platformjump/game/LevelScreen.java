@@ -10,6 +10,10 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.utils.SnapshotArray;
+import com.dongbat.jbump.Collision;
+import com.dongbat.jbump.Response;
+import com.dongbat.jbump.World;
 
 import java.util.ArrayList;
 
@@ -26,29 +30,42 @@ public class LevelScreen extends BaseScreen{
     Label messageLabel;
     ArrayList<Color> keyList;
 
+    public static SnapshotArray<BaseActor> entities;
+    public static World<BaseActor> world;
+    public static float TILE_DIMENSION = 64f;
+
     @Override
     public void initialize() {
         Gdx.app.setLogLevel(Application.LOG_DEBUG);
+
+        entities = new SnapshotArray<>();
+        world = new World<>(TILE_DIMENSION);
+
         TilemapActor tma = new TilemapActor("myMap.tmx",mainStage);
+
 
         //创建solid类型的障碍物
         for(MapObject obj: tma.getRectangleList("Solid")){
             MapProperties props = obj.getProperties();
-            new Solid((float)props.get("x"),(float)props.get("y"),
+           Solid solid =  new Solid((float)props.get("x"),(float)props.get("y"),
                     (float)props.get("width"),(float)props.get("height"),
                     mainStage
                     );
+           entities.add(solid);
+           world.add(solid.item,solid.getX()+solid.bboxX,solid.getY()+solid.bboxY, solid.bboxWidth, solid.bboxHeight);
         }
 
         //创建主角
         MapObject startPoint = tma.getRectangleList("Start").get(0);
         MapProperties startProps = startPoint.getProperties();
         jack = new Koala((float)startProps.get("x"),(float)startProps.get("y"),mainStage);
+        entities.add(jack);
+        world.add(jack.item,jack.getX()+jack.bboxX,jack.getY()+jack.bboxY, jack.bboxWidth, jack.bboxHeight);
 
         //ui设置
         gameOver = false;
         coins = 0;
-        time = 60;
+        time = 300;
         coinLabel = new Label("Coins: " +coins, BaseGame.labelStyle);
         coinLabel.setColor(Color.GOLD);
         keyTable = new Table();
@@ -214,6 +231,26 @@ public class LevelScreen extends BaseScreen{
             }
 
 
+            /**
+            Response.Result result = world.move(jack.item, jack.getX()+jack.bboxX,jack.getY()+jack.bboxY,Koala.PLAYER_COLLISION_FILTER);
+            for(int i = 0; i < result.projectedCollisions.size();i++){
+                Collision collision = result.projectedCollisions.get(i);
+                if(collision.other.userData instanceof Solid){
+                    Gdx.app.log(TAG,"collison.normal= " +collision.normal);
+                    if(collision.normal.x != 0){
+                        //hit a wall
+
+                        jack.velocityVec.x = 0;
+                    }
+
+                    if(collision.normal.y != 0){
+                        //hit ceiling or floor
+                        jack.velocityVec.y = 0;
+                    }
+                }
+            }*/
+
+            /**
             if(jack.overlaps(solid) && solid.isEnabled()){
                 Vector2 offset = jack.preventOverlap(solid);
                 //如何绘制出碰撞向量,以及多边形
@@ -229,7 +266,7 @@ public class LevelScreen extends BaseScreen{
                     }
 
                 }
-            }
+            }*/
         }
 
     }

@@ -11,6 +11,7 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.dongbat.jbump.*;
 import space.earlygrey.shapedrawer.ShapeDrawer;
 //import sun.security.krb5.internal.APOptions;
 
@@ -25,6 +26,15 @@ public class Koala extends BaseActor{
     private float gravity;
     private float maxVerticalSpeed;
 
+    //跳跃的最大时间
+    public static final float JUMP_MAX_TIME = .25f;
+    private float jumpTime;
+    private boolean jumping;
+
+    //重力加速度
+    public static final float GRAVITY = 3000f;
+
+
     private Animation jump;
     private float jumpSpeed;
     private BaseActor belowSensor;
@@ -38,6 +48,10 @@ public class Koala extends BaseActor{
     protected ShapeDrawer drawer;
     protected float[] polygon_vertices;
 
+    public static final PlayerCollisionFilter PLAYER_COLLISION_FILTER = new PlayerCollisionFilter();
+
+    public static final Collisions tempCollisions = new Collisions();
+
 
     public Koala(float x, float y, Stage s) {
         super(x, y, s);
@@ -46,6 +60,14 @@ public class Koala extends BaseActor{
                 "koala/walk-1.png","koala/walk-2.png",
                 "koala/walk-3.png","koala/walk-2.png"
         };
+
+        //包围盒的起始坐标与Player的坐标x和y方向的距离
+        bboxX = 0;
+        bboxY = 0;
+        //包围盒的宽度和高度
+        bboxWidth = 36;
+        bboxHeight = 52;
+        item = new Item<BaseActor>(this);
 
         Gdx.app.setLogLevel(Application.LOG_DEBUG);
         walk = loadAnimationFromFiles(walkFileNames,0.2f,true);
@@ -59,17 +81,7 @@ public class Koala extends BaseActor{
         belowSensor.loadTexture("white.png");
         belowSensor.setSize(this.getWidth()-8,8);
         belowSensor.setBoundaryRectangle();
-        belowSensor.setVisible(true);
-
-       // polygon_test = new BaseActor(0,0,s);
-       // polygon_test.loadTexture("polygon_test.png");
-
-        //pixmap = new Pixmap(Gdx.files.internal("polygon_test.png"));
-       // pixmap = new Pixmap(32, 56, Pixmap.Format.RGBA8888);
-        //pixmap.setColor(0,0,0,1);
-        //texture = new Texture(Gdx.files.internal("polygon_test.png"));
-        //textureRegion = new TextureRegion(texture);
-       // drawer = new ShapeDrawer(s.getBatch(),textureRegion);
+        belowSensor.setVisible(false);
 
         Pixmap pixmap = new Pixmap(1, 1, Pixmap.Format.RGBA8888);
         pixmap.setColor(Color.WHITE);
@@ -81,57 +93,137 @@ public class Koala extends BaseActor{
         drawer = new ShapeDrawer(s.getBatch(),region);
 
 
-        maxHorizontalSpeed = 200;
-        walkAcceleration = 300;
-        walkDeceleration = 500;
+
+        maxHorizontalSpeed = 500;
+        walkAcceleration = 1800;
+        walkDeceleration = 250;
         gravity = 500;
-        maxVerticalSpeed = 700;
+        maxVerticalSpeed = 600;
+        gravityY = -GRAVITY;
+        accelerationVec.x = walkAcceleration;
+
     }
 
     @Override
     public void act(float delta) {
         super.act(delta);
 
-        //根据玩家的输入，设置水平方向的加速度
-        if(Gdx.input.isKeyPressed(Input.Keys.LEFT)){
-            accelerationVec.add(-walkAcceleration,0);
+        velocityVec.x = Utils.approach(velocityVec.x, 0, walkDeceleration*delta);
+
+        boolean left = Gdx.input.isKeyPressed(Input.Keys.LEFT);
+        boolean right = Gdx.input.isKeyPressed(Input.Keys.RIGHT);
+        boolean up = Gdx.input.isKeyPressed(Input.Keys.UP);
+        boolean upJustPressed = Gdx.input.isKeyJustPressed(Input.Keys.UP);
+
+        //根据玩家的输入，设置水平方向的速度
+        if(right){
+            setAnimation(walk);
+            setScaleX(1);
+            velocityVec.x = Utils.approach(velocityVec.x,maxHorizontalSpeed,accelerationVec.x*delta);
+        }else if(left){
+            setAnimation(walk);
+            setScaleX(-1);
+            velocityVec.x = Utils.approach(velocityVec.x,-maxHorizontalSpeed,accelerationVec.x*delta);
+        }else{
+            setAnimation(stand);
+            velocityVec.x = Utils.approach(velocityVec.x, 0,accelerationVec.x*delta);
         }
 
-        if(Gdx.input.isKeyPressed(Input.Keys.RIGHT)){
-            accelerationVec.add(walkAcceleration,0);
+        if(!up)
+            jumping = false;
+        if(upJustPressed){
+            //判断是否在地面
+            LevelScreen.world.project(item,getX()+bboxX,getY()+bboxY,bboxWidth,bboxHeight,
+                    getX()+bboxX,getY()+bboxY-.1f,PLAYER_COLLISION_FILTER,tempCollisions);
+            if(tempCollisions.size() > 0){
+                jumping = true;
+            }
+
         }
 
+        //当按UP键时，持续向上加速
+        if(up && jumping && jumpTime < JUMP_MAX_TIME){
+            velocityVec.y = maxVerticalSpeed;
+            jumpTime += delta;
+        }
+
+        //根据玩家的输入更新位置
+        velocityVec.x += delta*gravityX;
+        velocityVec.y += delta*gravityY;
+        moveBy(velocityVec.x*delta,velocityVec.y*delta);
+
+        //处理碰撞
+        boolean inAir = true;
+        Response.Result result = LevelScreen.world.move(item, getX()+bboxX,getY()+bboxY,PLAYER_COLLISION_FILTER);
+        for(int i = 0; i < result.projectedCollisions.size();i++){
+            Collision collision = result.projectedCollisions.get(i);
+            if(collision.other.userData instanceof Solid){
+                Gdx.app.log(TAG,"collison.normal= " +collision.normal);
+                if(collision.normal.x != 0){
+                    //hit a wall
+                    velocityVec.x = 0;
+                }
+
+                if(collision.normal.y != 0){
+                    //hit ceiling or floor
+                    velocityVec.y = 0;
+                    jumpTime = JUMP_MAX_TIME;
+
+                    if(collision.normal.y == 1){
+                        //碰撞到地板
+                        jumpTime = 0f;
+                        jumping = false;
+                        inAir = false;
+
+                    }
+                }
+            }
+        }
+
+        //根据碰撞，更新位置
+        Rect rect = LevelScreen.world.getRect(item);
+        if(rect != null){
+            setX(rect.x-bboxX);
+            setY(rect.y-bboxY);
+        }
+
+        //根据碰撞设置动画
+        if(inAir)
+            setAnimation(jump);
+
+        /**
         //设置垂直方向的加速度,垂直加速度是固定的
-        accelerationVec.add(0,-gravity);
+        if(!this.isOnSolid())
+            accelerationVec.add(0,-gravity);
 
         //设置速度向量
-        velocityVec.add(accelerationVec.x*delta,accelerationVec.y*delta);
+        velocityVec.add(accelerationVec.x*delta,accelerationVec.y*delta);*/
 
 
-        //如果没有按左右方向的行走按键
-        if(!Gdx.input.isKeyPressed(Input.Keys.RIGHT) && !Gdx.input.isKeyPressed(Input.Keys.LEFT)){
-            float decelerationAmount = walkDeceleration*delta;
+       /**
+        float decelerationAmount = walkDeceleration*delta;
 
-            float walkDirection;
+        float walkDirection;
 
-            //设置行走方向
-            if(velocityVec.x > 0){
-                walkDirection = 1;
-            }else{
-                walkDirection = -1;
-            }
-
-            float walkSpeed = Math.abs(velocityVec.x);
-
-            walkSpeed -= decelerationAmount;
-
-            if(walkSpeed < 0){
-                walkSpeed = 0;
-            }
-
-            velocityVec.x = walkSpeed* walkDirection;
+        //设置行走方向
+        if(velocityVec.x > 0){
+            walkDirection = 1;
+        }else{
+            walkDirection = -1;
         }
 
+        float walkSpeed = Math.abs(velocityVec.x);
+
+        walkSpeed -= decelerationAmount;
+
+        if(walkSpeed < 0){
+            walkSpeed = 0;
+        }
+
+        velocityVec.x = walkSpeed* walkDirection;*/
+
+
+       /**
         //限制速度向量
         velocityVec.x = MathUtils.clamp(velocityVec.x,-maxHorizontalSpeed,maxHorizontalSpeed);
         velocityVec.y = MathUtils.clamp(velocityVec.y,-maxVerticalSpeed,maxVerticalSpeed);
@@ -141,7 +233,7 @@ public class Koala extends BaseActor{
         accelerationVec.set(0,0);
 
         belowSensor.setPosition(getX()+4,getY()-8);
-       // polygon_test.setPosition(getX(),getY());
+       // polygon_test.setPosition(getX(),getY());*/
 
 
         //绘制actor的碰撞形状，方便调试
@@ -152,27 +244,15 @@ public class Koala extends BaseActor{
             pixmap.drawPixel((int)vertices[m],(int)(getHeight()-vertices[m+1]));
             m = m+2;
         }*/
-       // int len = vertices.length/2-1;
-        //int j =0;
-       // for(int i=0; i<len;i=i+1){
-            //pixmap.drawLine((int)vertices[j],(int)vertices[j+1],(int)vertices[j+2],(int)vertices[j+3]);
-           // j = j+2;
 
-       // j=j-2;
-       // pixmap.drawLine((int)vertices[j],(int)vertices[j+1],(int)vertices[0],(int)vertices[1]);
-        //以actor的中心绘制圆，仅仅是测试
-       // pixmap.drawCircle((int)(getWidth()/2),(int)(getHeight()/2),10);
-
-       // Texture texture = new Texture(pixmap);
-
-      //  tt = texture;
-
-        polygon_vertices = this.getBoundaryPolygon().getTransformedVertices();
+        //polygon_vertices = this.getBoundaryPolygon().getTransformedVertices();
 
         alignCamera();
         boundToWorld();
 
+        /**
         if(this.isOnSolid()){
+
             belowSensor.setColor(Color.GREEN);
             if(velocityVec.x == 0){
                 setAnimation(stand);
@@ -182,16 +262,17 @@ public class Koala extends BaseActor{
         }else{
             belowSensor.setColor(Color.RED);
             setAnimation(jump);
-        }
+        }*/
 
 
+        /**
         if(velocityVec.x > 0){
             setScaleX(1);
         }
 
         if(velocityVec.x < 0){
             setScaleX(-1);
-        }
+        }*/
 
 
 
@@ -205,6 +286,8 @@ public class Koala extends BaseActor{
         // 使用shapedrawer绘制图形
         if( region != null && drawer != null){
             drawer.setColor(1,0,0,1);
+            Rect rect = LevelScreen.world.getRect(item);
+            drawer.rectangle(rect.x, rect.y, rect.w, rect.h);
             //drawer.line(0,0,300,300);
             //drawer.setColor(Color.BROWN);
            // drawer.line(350,250,490,780);
@@ -218,12 +301,26 @@ public class Koala extends BaseActor{
     }
 
     public boolean isOnSolid(){
+        /**
         //遍历所有的solid物体
         for(BaseActor actor: BaseActor.getList(getStage(),"com.platformjump.game.Solid")){
             Solid solid = (Solid)actor;
             //这里多出一个判断，增加正确的可靠性
             if(belowOverlaps(solid) && solid.isEnabled() && (belowSensor.getY()-solid.getY())>=(solid.getHeight()-10)){
                 return true;
+            }
+        }*/
+
+        Response.Result result = LevelScreen.world.move(item, getX() + bboxX, getY() + bboxY, PLAYER_COLLISION_FILTER);
+        for (int i = 0; i < result.projectedCollisions.size(); i++){
+            Collision collision = result.projectedCollisions.get(i);
+            if (collision.other.userData instanceof Solid){
+                if (collision.normal.y != 0){
+                    if (collision.normal.y == 1)
+                        return true;
+
+                }
+
             }
         }
 
@@ -241,11 +338,27 @@ public class Koala extends BaseActor{
 
     //弹跳冲刺
     public void spring(){
-        velocityVec.y = 1.5f*jumpSpeed;
+        velocityVec.y = 3.5f*jumpSpeed;
     }
 
     //判断是否正在向上跳跃
     public boolean isJumping(){
         return (velocityVec.y > 0);
     }
+
+    /**
+     * Slide on blocks, detect collisions with enemies
+     */
+    public static class PlayerCollisionFilter implements CollisionFilter {
+        @Override
+        public Response filter(Item item, Item other) {
+            if (other.userData instanceof Solid)
+                return Response.slide;
+
+            return null;
+        }
+    }
+
+
+
 }

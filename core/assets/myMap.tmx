@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.1" orientation="orthogonal" renderorder="right-down" width="50" height="20" tilewidth="32" tileheight="32" infinite="0" nextlayerid="4" nextobjectid="79">
+<map version="1.2" tiledversion="1.2.1" orientation="orthogonal" renderorder="right-down" width="50" height="20" tilewidth="32" tileheight="32" infinite="0" nextlayerid="4" nextobjectid="168">
  <tileset firstgid="1" name="platform-tileset" tilewidth="32" tileheight="32" tilecount="18" columns="6">
   <image source="platform-tileset.png" width="192" height="96"/>
  </tileset>
@@ -52,41 +52,6 @@
   </data>
  </layer>
  <objectgroup id="3" name="对象层 1">
-  <object id="3" x="320" y="448" width="64" height="32">
-   <properties>
-    <property name="name" value="Solid"/>
-   </properties>
-  </object>
-  <object id="4" x="672" y="512" width="32" height="32">
-   <properties>
-    <property name="name" value="Solid"/>
-   </properties>
-  </object>
-  <object id="5" x="640" y="544" width="96" height="32">
-   <properties>
-    <property name="name" value="Solid"/>
-   </properties>
-  </object>
-  <object id="6" x="608" y="576" width="160" height="32">
-   <properties>
-    <property name="name" value="Solid"/>
-   </properties>
-  </object>
-  <object id="8" x="960" y="448" width="96" height="32">
-   <properties>
-    <property name="name" value="Solid"/>
-   </properties>
-  </object>
-  <object id="10" x="0" y="608" width="1216" height="32">
-   <properties>
-    <property name="name" value="Solid"/>
-   </properties>
-  </object>
-  <object id="11" x="1216" y="608" width="384" height="32">
-   <properties>
-    <property name="name" value="Solid"/>
-   </properties>
-  </object>
   <object id="12" x="64" y="512" width="32" height="32">
    <properties>
     <property name="name" value="Start"/>
@@ -133,31 +98,6 @@
   <object id="52" gid="23" x="384" y="352" width="32" height="32"/>
   <object id="53" gid="23" x="416" y="352" width="32" height="32"/>
   <object id="54" gid="23" x="448" y="352" width="32" height="32"/>
-  <object id="55" x="480" y="512" width="64" height="96">
-   <properties>
-    <property name="name" value="Solid"/>
-   </properties>
-  </object>
-  <object id="56" x="640" y="256" width="160" height="32">
-   <properties>
-    <property name="name" value="Solid"/>
-   </properties>
-  </object>
-  <object id="57" x="800" y="160" width="192" height="32">
-   <properties>
-    <property name="name" value="Solid"/>
-   </properties>
-  </object>
-  <object id="58" x="800" y="352" width="128" height="32">
-   <properties>
-    <property name="name" value="Solid"/>
-   </properties>
-  </object>
-  <object id="59" x="1088" y="512" width="96" height="32">
-   <properties>
-    <property name="name" value="Solid"/>
-   </properties>
-  </object>
   <object id="60" gid="19" x="640" y="256" width="32" height="32"/>
   <object id="61" gid="19" x="672" y="256" width="32" height="32"/>
   <object id="62" gid="19" x="704" y="256" width="32" height="32"/>
@@ -177,5 +117,442 @@
   <object id="76" gid="19" x="1088" y="224" width="32" height="32"/>
   <object id="77" gid="19" x="1120" y="224" width="32" height="32"/>
   <object id="78" gid="19" x="1152" y="224" width="32" height="32"/>
+  <object id="79" x="0" y="608" width="32" height="32">
+   <properties>
+    <property name="name" value="Solid"/>
+   </properties>
+  </object>
+  <object id="80" x="32" y="608" width="32" height="32">
+   <properties>
+    <property name="name" value="Solid"/>
+   </properties>
+  </object>
+  <object id="81" x="64" y="608" width="32"/>
+  <object id="82" x="96" y="608" width="32" height="32">
+   <properties>
+    <property name="name" value="Solid"/>
+   </properties>
+  </object>
+  <object id="83" x="128" y="608" width="32" height="32">
+   <properties>
+    <property name="name" value="Solid"/>
+   </properties>
+  </object>
+  <object id="84" x="160" y="608" width="32" height="32">
+   <properties>
+    <property name="name" value="Solid"/>
+   </properties>
+  </object>
+  <object id="85" x="192" y="608" width="32" height="32">
+   <properties>
+    <property name="name" value="Solid"/>
+   </properties>
+  </object>
+  <object id="86" x="224" y="608" width="32" height="32">
+   <properties>
+    <property name="name" value="Solid"/>
+   </properties>
+  </object>
+  <object id="87" x="256" y="608" width="32" height="32">
+   <properties>
+    <property name="name" value="Solid"/>
+   </properties>
+  </object>
+  <object id="88" x="288" y="608" width="32" height="32">
+   <properties>
+    <property name="name" value="Solid"/>
+   </properties>
+  </object>
+  <object id="89" x="320" y="608" width="32" height="32">
+   <properties>
+    <property name="name" value="Solid"/>
+   </properties>
+  </object>
+  <object id="90" x="352" y="608" width="32" height="32">
+   <properties>
+    <property name="name" value="Solid"/>
+   </properties>
+  </object>
+  <object id="91" x="384" y="608" width="32" height="32">
+   <properties>
+    <property name="name" value="Solid"/>
+   </properties>
+  </object>
+  <object id="92" x="416" y="608" width="32" height="32">
+   <properties>
+    <property name="name" value="Solid"/>
+   </properties>
+  </object>
+  <object id="93" x="448" y="608" width="32" height="32">
+   <properties>
+    <property name="name" value="Solid"/>
+   </properties>
+  </object>
+  <object id="94" x="480" y="608" width="32" height="32">
+   <properties>
+    <property name="name" value="Solid"/>
+   </properties>
+  </object>
+  <object id="95" x="512" y="608" width="32" height="32">
+   <properties>
+    <property name="name" value="Solid"/>
+   </properties>
+  </object>
+  <object id="96" x="544" y="608" width="32" height="32">
+   <properties>
+    <property name="name" value="Solid"/>
+   </properties>
+  </object>
+  <object id="97" x="576" y="608" width="32" height="32">
+   <properties>
+    <property name="name" value="Solid"/>
+   </properties>
+  </object>
+  <object id="98" x="608" y="608" width="32" height="32">
+   <properties>
+    <property name="name" value="Solid"/>
+   </properties>
+  </object>
+  <object id="99" x="640" y="608" width="32" height="32">
+   <properties>
+    <property name="name" value="Solid"/>
+   </properties>
+  </object>
+  <object id="100" x="672" y="608" width="32" height="32">
+   <properties>
+    <property name="name" value="Solid"/>
+   </properties>
+  </object>
+  <object id="101" x="704" y="608" width="32" height="32">
+   <properties>
+    <property name="name" value="Solid"/>
+   </properties>
+  </object>
+  <object id="102" x="736" y="608" width="32" height="32"/>
+  <object id="103" x="768" y="608" width="32" height="32">
+   <properties>
+    <property name="name" value="Solid"/>
+   </properties>
+  </object>
+  <object id="104" x="800" y="608" width="32" height="32">
+   <properties>
+    <property name="name" value="Solid"/>
+   </properties>
+  </object>
+  <object id="105" x="832" y="608" width="32" height="32">
+   <properties>
+    <property name="name" value="Solid"/>
+   </properties>
+  </object>
+  <object id="106" x="864" y="608" width="32" height="32">
+   <properties>
+    <property name="name" value="Solid"/>
+   </properties>
+  </object>
+  <object id="107" x="896" y="608" width="32" height="32">
+   <properties>
+    <property name="name" value="Solid"/>
+   </properties>
+  </object>
+  <object id="108" x="928" y="608" width="32" height="32">
+   <properties>
+    <property name="name" value="Solid"/>
+   </properties>
+  </object>
+  <object id="109" x="960" y="608" width="32" height="32">
+   <properties>
+    <property name="name" value="Solid"/>
+   </properties>
+  </object>
+  <object id="110" x="992" y="608" width="32" height="32">
+   <properties>
+    <property name="name" value="Solid"/>
+   </properties>
+  </object>
+  <object id="111" x="1024" y="608" width="32" height="32">
+   <properties>
+    <property name="name" value="Solid"/>
+   </properties>
+  </object>
+  <object id="112" x="1056" y="608" width="32" height="32">
+   <properties>
+    <property name="name" value="Solid"/>
+   </properties>
+  </object>
+  <object id="113" x="1088" y="608" width="32" height="32">
+   <properties>
+    <property name="name" value="Solid"/>
+   </properties>
+  </object>
+  <object id="114" x="1120" y="608" width="32" height="32">
+   <properties>
+    <property name="name" value="Solid"/>
+   </properties>
+  </object>
+  <object id="115" x="1152" y="608" width="32" height="32">
+   <properties>
+    <property name="name" value="Solid"/>
+   </properties>
+  </object>
+  <object id="116" x="1184" y="608" width="32" height="32">
+   <properties>
+    <property name="name" value="Solid"/>
+   </properties>
+  </object>
+  <object id="117" x="1216" y="608" width="32" height="32">
+   <properties>
+    <property name="name" value="Solid"/>
+   </properties>
+  </object>
+  <object id="118" x="1248" y="608" width="32" height="32">
+   <properties>
+    <property name="name" value="Solid"/>
+   </properties>
+  </object>
+  <object id="119" x="1280" y="608" width="32" height="32">
+   <properties>
+    <property name="name" value="Solid"/>
+   </properties>
+  </object>
+  <object id="120" x="1312" y="608" width="32" height="32">
+   <properties>
+    <property name="name" value="Solid"/>
+   </properties>
+  </object>
+  <object id="121" x="1344" y="608" width="32" height="32">
+   <properties>
+    <property name="name" value="Solid"/>
+   </properties>
+  </object>
+  <object id="122" x="1376" y="608" width="32" height="32">
+   <properties>
+    <property name="name" value="Solid"/>
+   </properties>
+  </object>
+  <object id="123" x="1408" y="608" width="32" height="32">
+   <properties>
+    <property name="name" value="Solid"/>
+   </properties>
+  </object>
+  <object id="124" x="1440" y="608" width="32" height="32">
+   <properties>
+    <property name="name" value="Solid"/>
+   </properties>
+  </object>
+  <object id="125" x="1472" y="608" width="32" height="32">
+   <properties>
+    <property name="name" value="Solid"/>
+   </properties>
+  </object>
+  <object id="126" x="1504" y="608" width="32" height="32">
+   <properties>
+    <property name="name" value="Solid"/>
+   </properties>
+  </object>
+  <object id="127" x="1536" y="608" width="32" height="32">
+   <properties>
+    <property name="name" value="Solid"/>
+   </properties>
+  </object>
+  <object id="128" x="1568" y="608" width="32" height="32">
+   <properties>
+    <property name="name" value="Solid"/>
+   </properties>
+  </object>
+  <object id="129" x="320" y="448" width="32" height="32">
+   <properties>
+    <property name="name" value="Solid"/>
+   </properties>
+  </object>
+  <object id="130" x="352" y="448" width="32" height="32">
+   <properties>
+    <property name="name" value="Solid"/>
+   </properties>
+  </object>
+  <object id="131" x="480" y="512" width="32" height="32">
+   <properties>
+    <property name="name" value="Solid"/>
+   </properties>
+  </object>
+  <object id="132" x="512" y="512" width="32" height="32">
+   <properties>
+    <property name="name" value="Solid"/>
+   </properties>
+  </object>
+  <object id="133" x="480" y="544" width="32" height="32">
+   <properties>
+    <property name="name" value="Solid"/>
+   </properties>
+  </object>
+  <object id="134" x="512" y="544" width="32" height="32">
+   <properties>
+    <property name="name" value="Solid"/>
+   </properties>
+  </object>
+  <object id="135" x="480" y="576" width="32" height="32">
+   <properties>
+    <property name="name" value="Solid"/>
+   </properties>
+  </object>
+  <object id="136" x="512" y="576" width="32" height="32">
+   <properties>
+    <property name="name" value="Solid"/>
+   </properties>
+  </object>
+  <object id="137" x="672" y="544" width="32" height="32">
+   <properties>
+    <property name="name" value="Solid"/>
+   </properties>
+  </object>
+  <object id="138" x="672" y="512" width="32" height="32">
+   <properties>
+    <property name="name" value="Solid"/>
+   </properties>
+  </object>
+  <object id="139" x="640" y="544" width="32" height="32">
+   <properties>
+    <property name="name" value="Solid"/>
+   </properties>
+  </object>
+  <object id="140" x="608" y="576" width="32" height="32">
+   <properties>
+    <property name="name" value="Solid"/>
+   </properties>
+  </object>
+  <object id="141" x="640" y="576" width="32" height="32">
+   <properties>
+    <property name="name" value="Solid"/>
+   </properties>
+  </object>
+  <object id="142" x="672" y="576" width="32" height="32">
+   <properties>
+    <property name="name" value="Solid"/>
+   </properties>
+  </object>
+  <object id="143" x="704" y="544" width="32" height="32">
+   <properties>
+    <property name="name" value="Solid"/>
+   </properties>
+  </object>
+  <object id="144" x="704" y="576" width="32" height="32">
+   <properties>
+    <property name="name" value="Solid"/>
+   </properties>
+  </object>
+  <object id="145" x="736" y="576" width="32" height="32">
+   <properties>
+    <property name="name" value="Solid"/>
+   </properties>
+  </object>
+  <object id="146" x="800" y="352" width="32" height="32">
+   <properties>
+    <property name="name" value="Solid"/>
+   </properties>
+  </object>
+  <object id="147" x="832" y="352" width="32" height="32">
+   <properties>
+    <property name="name" value="Solid"/>
+   </properties>
+  </object>
+  <object id="148" x="864" y="352" width="32" height="32">
+   <properties>
+    <property name="name" value="Solid"/>
+   </properties>
+  </object>
+  <object id="149" x="896" y="352" width="32" height="32">
+   <properties>
+    <property name="name" value="Solid"/>
+   </properties>
+  </object>
+  <object id="150" x="640" y="256" width="32" height="32">
+   <properties>
+    <property name="name" value="Solid"/>
+   </properties>
+  </object>
+  <object id="151" x="672" y="256" width="32" height="32">
+   <properties>
+    <property name="name" value="Solid"/>
+   </properties>
+  </object>
+  <object id="152" x="704" y="256" width="32" height="32">
+   <properties>
+    <property name="name" value="Solid"/>
+   </properties>
+  </object>
+  <object id="153" x="736" y="256" width="32" height="32">
+   <properties>
+    <property name="name" value="Solid"/>
+   </properties>
+  </object>
+  <object id="154" x="768" y="256" width="32" height="32">
+   <properties>
+    <property name="name" value="Solid"/>
+   </properties>
+  </object>
+  <object id="155" x="800" y="160" width="32" height="32">
+   <properties>
+    <property name="name" value="Solid"/>
+   </properties>
+  </object>
+  <object id="156" x="832" y="160" width="32" height="32">
+   <properties>
+    <property name="name" value="Solid"/>
+   </properties>
+  </object>
+  <object id="157" x="864" y="160" width="32" height="32">
+   <properties>
+    <property name="name" value="Solid"/>
+   </properties>
+  </object>
+  <object id="158" x="896" y="160" width="32" height="32">
+   <properties>
+    <property name="name" value="Solid"/>
+   </properties>
+  </object>
+  <object id="159" x="928" y="160" width="32" height="32">
+   <properties>
+    <property name="name" value="Solid"/>
+   </properties>
+  </object>
+  <object id="160" x="960" y="160" width="32" height="32">
+   <properties>
+    <property name="name" value="Solid"/>
+   </properties>
+  </object>
+  <object id="161" x="960" y="448" width="32" height="32">
+   <properties>
+    <property name="name" value="Solid"/>
+   </properties>
+  </object>
+  <object id="162" x="992" y="448" width="32" height="32">
+   <properties>
+    <property name="name" value="Solid"/>
+   </properties>
+  </object>
+  <object id="163" x="1024" y="448" width="32" height="32">
+   <properties>
+    <property name="name" value="Solid"/>
+   </properties>
+  </object>
+  <object id="164" x="1088" y="512" width="32" height="32">
+   <properties>
+    <property name="name" value="Solid"/>
+   </properties>
+  </object>
+  <object id="165" x="1120" y="512" width="32" height="32">
+   <properties>
+    <property name="name" value="Solid"/>
+   </properties>
+  </object>
+  <object id="166" x="1152" y="512" width="32" height="32">
+   <properties>
+    <property name="name" value="Solid"/>
+   </properties>
+  </object>
+  <object id="167" x="64" y="608" width="32" height="32">
+   <properties>
+    <property name="name" value="Solid"/>
+   </properties>
+  </object>
  </objectgroup>
 </map>

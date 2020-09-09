@@ -14,6 +14,7 @@ import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.dongbat.jbump.Item;
 import space.earlygrey.shapedrawer.ShapeDrawer;
 
 import java.util.ArrayList;
@@ -43,6 +44,18 @@ public class BaseActor extends Group {
 
     //actor所在世界的边界
     private static Rectangle worldBounds;
+
+    //与碰撞相关，即碰撞包围盒
+    public float bboxX;
+    public float bboxY;
+    public float bboxWidth;
+    public float bboxHeight;
+
+    public float gravityX;
+    public float gravityY;
+
+    //与jbump相关，用于碰撞
+    public Item<BaseActor> item;
 
 
     //绘制pixmap类型的图形
