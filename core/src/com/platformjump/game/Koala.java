@@ -10,6 +10,7 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.scenes.scene2d.EventListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.dongbat.jbump.*;
 import space.earlygrey.shapedrawer.ShapeDrawer;
@@ -94,9 +95,9 @@ public class Koala extends BaseActor{
 
 
 
-        maxHorizontalSpeed = 500;
-        walkAcceleration = 1800;
-        walkDeceleration = 250;
+        maxHorizontalSpeed = 300;
+        walkAcceleration = 600;
+        walkDeceleration = 200;
         gravity = 500;
         maxVerticalSpeed = 600;
         gravityY = -GRAVITY;
@@ -152,32 +153,43 @@ public class Koala extends BaseActor{
         velocityVec.y += delta*gravityY;
         moveBy(velocityVec.x*delta,velocityVec.y*delta);
 
+
         //处理碰撞
         boolean inAir = true;
         Response.Result result = LevelScreen.world.move(item, getX()+bboxX,getY()+bboxY,PLAYER_COLLISION_FILTER);
         for(int i = 0; i < result.projectedCollisions.size();i++){
             Collision collision = result.projectedCollisions.get(i);
+
             if(collision.other.userData instanceof Solid){
+                Solid solid = (Solid)collision.other.userData;
                 Gdx.app.log(TAG,"collison.normal= " +collision.normal);
-                if(collision.normal.x != 0){
-                    //hit a wall
-                    velocityVec.x = 0;
-                }
 
-                if(collision.normal.y != 0){
-                    //hit ceiling or floor
-                    velocityVec.y = 0;
-                    jumpTime = JUMP_MAX_TIME;
+                if(solid.isEnabled()){
+                    if(collision.normal.x != 0){
+                        //hit a wall
+                        velocityVec.x = 0;
+                    }
 
-                    if(collision.normal.y == 1){
-                        //碰撞到地板
-                        jumpTime = 0f;
-                        jumping = false;
-                        inAir = false;
+                    if(collision.normal.y != 0){
+                        //hit ceiling or floor
+                        velocityVec.y = 0;
+                        jumpTime = JUMP_MAX_TIME;
 
+                        if(collision.normal.y == 1){
+                            //碰撞到地板
+                            jumpTime = 0f;
+                            jumping = false;
+                            inAir = false;
+                        }
                     }
                 }
+            }else if(collision.other.userData instanceof Springboard){
+                //如果是冲刺板
+                if(isFalling())
+                    spring();
             }
+
+
         }
 
         //根据碰撞，更新位置
@@ -352,13 +364,33 @@ public class Koala extends BaseActor{
     public static class PlayerCollisionFilter implements CollisionFilter {
         @Override
         public Response filter(Item item, Item other) {
-            if (other.userData instanceof Solid)
+
+            if (other.userData instanceof Solid ){
+                Solid solid = (Solid)other.userData;
+
+                //如果solid是platform类型的物体，则需要考虑koala是否正在跳跃还是降落
+                //根据koala player的状态来判断是否使能或关闭solid的碰撞
+                if(solid instanceof Platform){
+                    Koala koala = (Koala)item.userData;
+                    if(koala.isJumping()){
+                        solid.setEnabled(false);
+                    }else if(koala.isFalling()){
+                        solid.setEnabled(true);
+                    }
+
+                    if(solid.isEnabled()){
+                        return Response.slide;
+                    }else
+                        return Response.cross;
+                }
+
                 return Response.slide;
+            } else if(other.userData instanceof Springboard){
+                return Response.cross;
+            }
 
             return null;
         }
     }
-
-
 
 }

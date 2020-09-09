@@ -100,16 +100,23 @@ public class LevelScreen extends BaseScreen{
             new Timer((float)props.get("x"),(float)props.get("y"),mainStage);
         }
 
+        //创建springboard物体并添加到world中
         for(MapObject obj: tma.getTitleList("Springboard")){
             MapProperties props = obj.getProperties();
-            new Springboard((float)props.get("x"),(float)props.get("y"),mainStage);
+           Springboard springboard =  new Springboard((float)props.get("x"),(float)props.get("y"),mainStage);
+
+           entities.add(springboard);
+           world.add(springboard.item,springboard.getX()+springboard.bboxX,springboard.getY()+springboard.bboxY, springboard.bboxWidth, springboard.bboxHeight);
         }
         jack.toFront();
 
         //创建platform物体
         for(MapObject obj : tma.getTitleList("Platform")){
             MapProperties props = obj.getProperties();
-            new Platform((float)props.get("x"),(float)props.get("y"),mainStage);
+            Platform platform = new Platform((float)props.get("x"),(float)props.get("y"),mainStage);
+
+            entities.add(platform);
+            world.add(platform.item,platform.getX()+platform.bboxX,platform.getY()+platform.bboxY, platform.bboxWidth, platform.bboxHeight);
 
         }
 
@@ -171,11 +178,12 @@ public class LevelScreen extends BaseScreen{
             gameOver = true;
         }
 
+        /**
         for(BaseActor springboard: BaseActor.getList(mainStage,"com.platformjump.game.Springboard")){
             if(jack.overlaps(springboard) && jack.isFalling()){
                 jack.spring();
             }
-        }
+        }*/
 
         for(BaseActor coin: BaseActor.getList(mainStage,"com.platformjump.game.Coin")){
             if(jack.overlaps(coin)){
@@ -203,23 +211,27 @@ public class LevelScreen extends BaseScreen{
         for(BaseActor actor: BaseActor.getList(mainStage,"com.platformjump.game.Solid")){
             Solid solid = (Solid) actor;
 
+
+
             //判断solid是platform物体的实例
-            if(solid instanceof Platform){
+         //   if(solid instanceof Platform){
+                /**
                 //jack跳跃并且与platform重叠，则platform可以穿越，就是不进行碰撞
                 if(jack.isJumping() && jack.overlaps(solid)){
                     solid.setEnabled(false);
-                }
+                }*/
 
+                /**
                 //jack跳跃，并且没有与platform重叠，则platform恢复碰撞功能
                 if(jack.isJumping() && !jack.overlaps(solid)){
                     solid.setEnabled(true);
                 }
 
                 //jack在落下，并且没有与plaform重叠，则platform恢复碰撞功能
-                if(jack.isFalling() && !jack.overlaps(solid) && !jack.belowOverlaps(solid)){
+                if(jack.isFalling() && !jack.overlaps(solid) ){
                     solid.setEnabled(true);
-                }
-            }
+                }*/
+          //  }
 
             if(solid instanceof Lock && jack.overlaps(solid)){
                 Color lockColor = solid.getColor();
