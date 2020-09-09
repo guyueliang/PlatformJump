@@ -54,6 +54,8 @@ public class Koala extends BaseActor{
     public static final Collisions tempCollisions = new Collisions();
 
 
+    private boolean onPlatform;
+    private boolean downPlatform;
     public Koala(float x, float y, Stage s) {
         super(x, y, s);
         stand = loadTexture("koala/stand.png");
@@ -102,6 +104,8 @@ public class Koala extends BaseActor{
         maxVerticalSpeed = 600;
         gravityY = -GRAVITY;
         accelerationVec.x = walkAcceleration;
+        onPlatform = false;
+        downPlatform = false;
 
     }
 
@@ -138,6 +142,7 @@ public class Koala extends BaseActor{
                     getX()+bboxX,getY()+bboxY-.1f,PLAYER_COLLISION_FILTER,tempCollisions);
             if(tempCollisions.size() > 0){
                 jumping = true;
+
             }
 
         }
@@ -153,6 +158,8 @@ public class Koala extends BaseActor{
         velocityVec.y += delta*gravityY;
         moveBy(velocityVec.x*delta,velocityVec.y*delta);
 
+        downPlatform = Gdx.input.isKeyPressed(Input.Keys.DOWN);
+
 
         //处理碰撞
         boolean inAir = true;
@@ -163,6 +170,11 @@ public class Koala extends BaseActor{
             if(collision.other.userData instanceof Solid){
                 Solid solid = (Solid)collision.other.userData;
                 Gdx.app.log(TAG,"collison.normal= " +collision.normal);
+
+                /**
+                if(onPlatform && pressed && solid instanceof Platform){
+                    solid.setEnabled(false);
+                }*/
 
                 if(solid.isEnabled()){
                     if(collision.normal.x != 0){
@@ -180,6 +192,10 @@ public class Koala extends BaseActor{
                             jumpTime = 0f;
                             jumping = false;
                             inAir = false;
+
+                            if(solid instanceof Platform){
+                                onPlatform = true;
+                            }
                         }
                     }
                 }
@@ -374,8 +390,10 @@ public class Koala extends BaseActor{
                     Koala koala = (Koala)item.userData;
                     if(koala.isJumping()){
                         solid.setEnabled(false);
-                    }else if(koala.isFalling()){
+                    }else if(koala.isFalling() && !koala.downPlatform){
                         solid.setEnabled(true);
+                    }else if(koala.onPlatform && koala.downPlatform && koala.isFalling()){
+                        solid.setEnabled(false);
                     }
 
                     if(solid.isEnabled()){

@@ -283,12 +283,14 @@ public class LevelScreen extends BaseScreen{
 
     }
 
+
     @Override
     public boolean keyDown(int keycode) {
 
         if(gameOver)
             return false;
 
+        /**
         //判断是否按下空格键和DOWN键
         if(keycode == Input.Keys.SPACE){
             if(Gdx.input.isKeyPressed(Input.Keys.DOWN)){
@@ -303,6 +305,7 @@ public class LevelScreen extends BaseScreen{
             }
 
         }
+        return false;*/
         return false;
     }
 }

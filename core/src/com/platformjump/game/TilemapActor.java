@@ -42,6 +42,7 @@ public class TilemapActor extends Actor {
         int mapWidth = tileWidth*numTileHorizontal;
         int mapHeight = tileHeight*numTileVertical;
 
+        //设置世界的边界
         BaseActor.setWorldBounds(mapWidth,mapHeight);
 
         tiledMapRenderer = new OrthoCachedTiledMapRenderer(tiledMap);
