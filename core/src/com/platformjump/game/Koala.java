@@ -12,6 +12,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.EventListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.dongbat.jbump.*;
 import space.earlygrey.shapedrawer.ShapeDrawer;
 
@@ -182,12 +183,7 @@ public class Koala extends BaseActor{
 
             if(collision.other.userData instanceof Solid){
                 Solid solid = (Solid)collision.other.userData;
-                Gdx.app.log(TAG,"collison.normal= " +collision.normal);
-
-                /**
-                if(onPlatform && pressed && solid instanceof Platform){
-                    solid.setEnabled(false);
-                }*/
+                //Gdx.app.log(TAG,"collison.normal= " +collision.normal);
 
                 if(solid.isEnabled()){
                     if(collision.normal.x != 0){
@@ -211,6 +207,12 @@ public class Koala extends BaseActor{
                             }
                         }
                     }
+                }else if(solid instanceof Lock){
+                    solid.addAction(Actions.fadeOut(0.5f));
+                    solid.addAction(Actions.after(Actions.removeActor()));
+                    LevelScreen.entities.removeValue(solid,true);
+                    LevelScreen.world.remove(collision.other);
+                    solid.remove();
                 }
             }else if(collision.other.userData instanceof Springboard){
                 //如果是冲刺板
@@ -454,6 +456,16 @@ public class Koala extends BaseActor{
                         return Response.slide;
                     }else
                         return Response.cross;
+                }else if(solid instanceof Lock){
+                    //如果是lock的话
+                    Lock lock = (Lock)other.userData;
+                    Color color = lock.getColor();
+                    Koala koala = (Koala)item.userData;
+                   if(koala.keyList.contains(color)){
+                       lock.setEnabled(false);
+                       return  Response.cross;
+                   }
+
                 }
 
                 return Response.slide;

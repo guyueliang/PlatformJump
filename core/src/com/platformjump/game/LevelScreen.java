@@ -158,6 +158,9 @@ public class LevelScreen extends BaseScreen{
                 lock.setColor(Color.RED);
             else
                 lock.setColor(Color.WHITE);
+
+            entities.add(lock);
+            world.add(lock.item,lock.getX()+lock.bboxX,lock.getY()+lock.bboxY,lock.bboxWidth,lock.bboxHeight);
         }
 
     }
@@ -264,6 +267,7 @@ public class LevelScreen extends BaseScreen{
                 }*/
           //  }
 
+            /**
             if(solid instanceof Lock && jack.overlaps(solid)){
                 Color lockColor = solid.getColor();
                 if(keyList.contains(lockColor)){
@@ -271,7 +275,7 @@ public class LevelScreen extends BaseScreen{
                     solid.addAction(Actions.fadeOut(0.5f));
                     solid.addAction(Actions.after(Actions.removeActor()));
                 }
-            }
+            }*/
 
 
             /**
