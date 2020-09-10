@@ -94,7 +94,10 @@ public class LevelScreen extends BaseScreen{
         //创建flag物体
         for(MapObject obj: tma.getTitleList("Flag")){
             MapProperties props = obj.getProperties();
-            new Flag((float)props.get("x"),(float)props.get("y"),mainStage);
+            Flag flag = new Flag((float)props.get("x"),(float)props.get("y"),mainStage);
+
+            entities.add(flag);
+            world.add(flag.item,flag.getX()+flag.bboxX,flag.getY()+flag.bboxY, flag.bboxWidth, flag.bboxHeight);
         }
 
         //创建金币
@@ -171,6 +174,13 @@ public class LevelScreen extends BaseScreen{
         if(gameOver)
             return;
 
+        if(jack.isWin()){
+            messageLabel.setText("You Win!");
+            messageLabel.setColor(Color.LIME);
+            messageLabel.setVisible(true);
+            gameOver = true;
+        }
+        /**
         for(BaseActor flag: BaseActor.getList(mainStage,"com.platformjump.game.Flag")){
             if(jack.overlaps(flag)){
                 messageLabel.setText("You Win!");
@@ -179,7 +189,7 @@ public class LevelScreen extends BaseScreen{
                 jack.remove();
                 gameOver = true;
             }
-        }
+        }*/
 
         time -=dt;
         timeLabel.setText("Time: " + (int)time);
@@ -242,8 +252,8 @@ public class LevelScreen extends BaseScreen{
 
         //处理actor与solid类型的物体的碰撞
         //Platform物体也在此可以获得，因为Platform是Solid物体的子类
-        for(BaseActor actor: BaseActor.getList(mainStage,"com.platformjump.game.Solid")){
-            Solid solid = (Solid) actor;
+     //   for(BaseActor actor: BaseActor.getList(mainStage,"com.platformjump.game.Solid")){
+         //   Solid solid = (Solid) actor;
 
 
 
@@ -314,7 +324,7 @@ public class LevelScreen extends BaseScreen{
 
                 }
             }*/
-        }
+      //  }
 
     }
 

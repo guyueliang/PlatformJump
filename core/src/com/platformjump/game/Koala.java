@@ -64,6 +64,7 @@ public class Koala extends BaseActor{
     private boolean hasKey;
     private Color keyColor;
     ArrayList<Color> keyList;
+    private boolean isWin;
 
     public Koala(float x, float y, Stage s) {
         super(x, y, s);
@@ -235,6 +236,9 @@ public class Koala extends BaseActor{
                 LevelScreen.entities.removeValue(key,true);
                 LevelScreen.world.remove(collision.other);
                 key.remove();
+            }else if(collision.other.userData instanceof Flag){
+                setWin(true);
+
             }
 
 
@@ -430,6 +434,14 @@ public class Koala extends BaseActor{
         this.keyColor = keyColor;
     }
 
+    public boolean isWin() {
+        return isWin;
+    }
+
+    public void setWin(boolean win) {
+        isWin = win;
+    }
+
     /**
      * Slide on blocks, detect collisions with enemies
      */
@@ -474,6 +486,8 @@ public class Koala extends BaseActor{
             }else if(other.userData instanceof Coin){
                 return Response.cross;
             }else if(other.userData instanceof Key){
+                return Response.cross;
+            }else if(other.userData instanceof Flag){
                 return Response.cross;
             }
 
