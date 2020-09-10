@@ -90,7 +90,10 @@ public class LevelScreen extends BaseScreen{
         //创建金币
         for(MapObject obj: tma.getTitleList("Coin")){
             MapProperties props = obj.getProperties();
-            new Coin((float)props.get("x"),(float)props.get("y"),mainStage);
+            Coin coin = new Coin((float)props.get("x"),(float)props.get("y"),mainStage);
+
+            entities.add(coin);
+            world.add(coin.item,coin.getX()+coin.bboxX,coin.getY()+coin.bboxY, coin.bboxWidth, coin.bboxHeight);
 
         }
 
@@ -185,13 +188,15 @@ public class LevelScreen extends BaseScreen{
             }
         }*/
 
+        /**
         for(BaseActor coin: BaseActor.getList(mainStage,"com.platformjump.game.Coin")){
             if(jack.overlaps(coin)){
                 coins++;
                 coinLabel.setText("Coins: " + coins);
                 coin.remove();
             }
-        }
+        }*/
+        coinLabel.setText("Coins: " + jack.getCoin());
 
         for(BaseActor key: BaseActor.getList(mainStage,"com.platformjump.game.Key")){
             if(jack.overlaps(key)){

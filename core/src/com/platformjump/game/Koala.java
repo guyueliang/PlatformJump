@@ -56,6 +56,9 @@ public class Koala extends BaseActor{
 
     private boolean onPlatform;
     private boolean downPlatform;
+
+    private int coin;
+
     public Koala(float x, float y, Stage s) {
         super(x, y, s);
         stand = loadTexture("koala/stand.png");
@@ -203,6 +206,12 @@ public class Koala extends BaseActor{
                 //如果是冲刺板
                 if(isFalling())
                     spring();
+            }else if(collision.other.userData instanceof Coin){
+                Coin coin = (Coin)collision.other.userData;
+                addCoin(1);
+                LevelScreen.entities.removeValue(coin,true);
+                LevelScreen.world.remove(collision.other);
+                coin.remove();
             }
 
 
@@ -374,6 +383,14 @@ public class Koala extends BaseActor{
         return (velocityVec.y > 0);
     }
 
+    public int getCoin(){
+        return coin;
+    }
+
+    public void addCoin(int coin){
+        this.coin += coin;
+    }
+
     /**
      * Slide on blocks, detect collisions with enemies
      */
@@ -404,6 +421,8 @@ public class Koala extends BaseActor{
 
                 return Response.slide;
             } else if(other.userData instanceof Springboard){
+                return Response.cross;
+            }else if(other.userData instanceof Coin){
                 return Response.cross;
             }
 
