@@ -65,6 +65,7 @@ public class Koala extends BaseActor{
     private Color keyColor;
     ArrayList<Color> keyList;
     private boolean isWin;
+    private  float gameLeftTime;
 
     public Koala(float x, float y, Stage s) {
         super(x, y, s);
@@ -121,12 +122,16 @@ public class Koala extends BaseActor{
         hasKey = false;
         keyList = new ArrayList<Color>();
         keyColor = new Color(0,1,0,1);
+        gameLeftTime = 40;
 
     }
 
     @Override
     public void act(float delta) {
         super.act(delta);
+
+        //减少游戏时间
+        gameLeftTime -= delta;
 
         velocityVec.x = Utils.approach(velocityVec.x, 0, walkDeceleration*delta);
 
@@ -238,6 +243,13 @@ public class Koala extends BaseActor{
                 key.remove();
             }else if(collision.other.userData instanceof Flag){
                 setWin(true);
+
+            }else if(collision.other.userData instanceof Timer){
+                Timer timer = (Timer) collision.other.userData;
+                gameLeftTime += 20;
+                LevelScreen.entities.removeValue(timer,false);
+                LevelScreen.world.remove(collision.other);
+                timer.remove();
 
             }
 
@@ -442,6 +454,14 @@ public class Koala extends BaseActor{
         isWin = win;
     }
 
+    public float getGameLeftTime() {
+        return gameLeftTime;
+    }
+
+    public void setGameLeftTime(float gameLeftTime) {
+        this.gameLeftTime = gameLeftTime;
+    }
+
     /**
      * Slide on blocks, detect collisions with enemies
      */
@@ -488,6 +508,8 @@ public class Koala extends BaseActor{
             }else if(other.userData instanceof Key){
                 return Response.cross;
             }else if(other.userData instanceof Flag){
+                return Response.cross;
+            }else if(other.userData instanceof Timer){
                 return Response.cross;
             }
 

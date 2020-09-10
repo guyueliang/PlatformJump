@@ -113,7 +113,10 @@ public class LevelScreen extends BaseScreen{
         //创建时间计时器
         for(MapObject obj: tma.getTitleList("Timer")){
             MapProperties props = obj.getProperties();
-            new Timer((float)props.get("x"),(float)props.get("y"),mainStage);
+           Timer timer = new Timer((float)props.get("x"),(float)props.get("y"),mainStage);
+
+            entities.add(timer);
+            world.add(timer.item,timer.getX()+timer.bboxX,timer.getY()+timer.bboxY, timer.bboxWidth, timer.bboxHeight);
         }
 
         //创建springboard物体并添加到world中
@@ -191,21 +194,32 @@ public class LevelScreen extends BaseScreen{
             }
         }*/
 
-        time -=dt;
-        timeLabel.setText("Time: " + (int)time);
+        timeLabel.setText("Time: " + (int)jack.getGameLeftTime());
+       // time -=dt;
+       // timeLabel.setText("Time: " + (int)time);
+        /**
         for(BaseActor timer: BaseActor.getList(mainStage,"com.platformjump.game.Timer")){
             if(jack.overlaps(timer)){
                 time += 20;
                 timer.remove();
             }
+        }*/
+
+        if(jack.getGameLeftTime() <= 0){
+            messageLabel.setText("Time Up- Game Over");
+            messageLabel.setColor(Color.RED);
+            messageLabel.setVisible(true);
+            //jack.remove();
+            gameOver = true;
         }
+        /**
         if(time <= 0){
             messageLabel.setText("Time Up- Game Over");
             messageLabel.setColor(Color.RED);
             messageLabel.setVisible(true);
             jack.remove();
             gameOver = true;
-        }
+        }*/
 
         /**
         for(BaseActor springboard: BaseActor.getList(mainStage,"com.platformjump.game.Springboard")){
