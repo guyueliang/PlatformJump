@@ -14,6 +14,8 @@ import com.badlogic.gdx.scenes.scene2d.EventListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.dongbat.jbump.*;
 import space.earlygrey.shapedrawer.ShapeDrawer;
+
+import java.util.ArrayList;
 //import sun.security.krb5.internal.APOptions;
 
 public class Koala extends BaseActor{
@@ -58,6 +60,9 @@ public class Koala extends BaseActor{
     private boolean downPlatform;
 
     private int coin;
+    private boolean hasKey;
+    private Color keyColor;
+    ArrayList<Color> keyList;
 
     public Koala(float x, float y, Stage s) {
         super(x, y, s);
@@ -109,6 +114,11 @@ public class Koala extends BaseActor{
         accelerationVec.x = walkAcceleration;
         onPlatform = false;
         downPlatform = false;
+
+        coin = 0;
+        hasKey = false;
+        keyList = new ArrayList<Color>();
+        keyColor = new Color(0,1,0,1);
 
     }
 
@@ -207,11 +217,22 @@ public class Koala extends BaseActor{
                 if(isFalling())
                     spring();
             }else if(collision.other.userData instanceof Coin){
+                //如果是金币
                 Coin coin = (Coin)collision.other.userData;
                 addCoin(1);
                 LevelScreen.entities.removeValue(coin,true);
                 LevelScreen.world.remove(collision.other);
                 coin.remove();
+            }else if(collision.other.userData instanceof Key){
+                //如果是钥匙
+                Key key = (Key)collision.other.userData;
+                setHasKey(true);
+                keyList.add(key.getColor());
+                setKeyColor(key.getColor());
+
+                LevelScreen.entities.removeValue(key,true);
+                LevelScreen.world.remove(collision.other);
+                key.remove();
             }
 
 
@@ -391,6 +412,22 @@ public class Koala extends BaseActor{
         this.coin += coin;
     }
 
+    public boolean isHasKey(){
+        return hasKey;
+    }
+
+    public void setHasKey(boolean hasKey){
+        this.hasKey = hasKey;
+    }
+
+    public Color getKeyColor() {
+        return keyColor;
+    }
+
+    public void setKeyColor(Color keyColor) {
+        this.keyColor = keyColor;
+    }
+
     /**
      * Slide on blocks, detect collisions with enemies
      */
@@ -423,6 +460,8 @@ public class Koala extends BaseActor{
             } else if(other.userData instanceof Springboard){
                 return Response.cross;
             }else if(other.userData instanceof Coin){
+                return Response.cross;
+            }else if(other.userData instanceof Key){
                 return Response.cross;
             }
 

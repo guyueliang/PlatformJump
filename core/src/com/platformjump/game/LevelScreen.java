@@ -29,6 +29,7 @@ public class LevelScreen extends BaseScreen{
     Label timeLabel;
     Label messageLabel;
     ArrayList<Color> keyList;
+    BaseActor keyIcon;
 
     public static SnapshotArray<BaseActor> entities;
     public static World<BaseActor> world;
@@ -77,9 +78,18 @@ public class LevelScreen extends BaseScreen{
         uiTable.pad(20);//上下左右各填充20个像素
         uiTable.add(coinLabel);
         uiTable.add(keyTable).expandX();
+
+        keyIcon = new BaseActor(0,0,uiStage);
+        keyIcon.loadTexture("key-icon.png");
+        //keyIcon.setColor(keyColor);
+        keyIcon.setVisible(false);
+        keyTable.add(keyIcon);
+
         uiTable.add(timeLabel);
         uiTable.row();
         uiTable.add(messageLabel).colspan(3).expandY();
+
+
 
         //创建flag物体
         for(MapObject obj: tma.getTitleList("Flag")){
@@ -134,6 +144,9 @@ public class LevelScreen extends BaseScreen{
                 key.setColor(Color.RED);
             else
                 key.setColor(Color.WHITE);
+
+            entities.add(key);
+            world.add(key.item,key.getX()+key.bboxX,key.getY()+key.bboxY,key.bboxWidth,key.bboxHeight);
         }
 
         //创建lock物体
@@ -198,17 +211,30 @@ public class LevelScreen extends BaseScreen{
         }*/
         coinLabel.setText("Coins: " + jack.getCoin());
 
-        for(BaseActor key: BaseActor.getList(mainStage,"com.platformjump.game.Key")){
-            if(jack.overlaps(key)){
-                Color keyColor = key.getColor();
-                key.remove();
+
+      //  for(BaseActor key: BaseActor.getList(mainStage,"com.platformjump.game.Key")){
+           // if(jack.overlaps(key)){
+            //    Color keyColor = key.getColor();
+            //    key.remove();
+                /**
                 BaseActor keyIcon = new BaseActor(0,0,uiStage);
                 keyIcon.loadTexture("key-icon.png");
                 keyIcon.setColor(keyColor);
-                keyTable.add(keyIcon);
-                keyList.add(keyColor);
-            }
+                keyTable.add(keyIcon);*/
+              //  keyIcon.setColor(keyColor);
+              //  keyIcon.setVisible(true);
+               // keyList.add(keyColor);
+        //    }
+      //  }
+
+
+
+        if(jack.isHasKey()){
+            keyIcon.setColor(jack.getKeyColor());
+            keyIcon.setVisible(true);
         }
+
+
 
 
         //处理actor与solid类型的物体的碰撞
