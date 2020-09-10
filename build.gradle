@@ -64,7 +64,7 @@ project(":core") {
         api "com.badlogicgames.gdx:gdx-box2d:$gdxVersion"
         api "com.badlogicgames.gdx:gdx-freetype:$gdxVersion"
         implementation "space.earlygrey:shapedrawer:$shapedrawerVersion"
-        implementation 'com.github.tommyettinger:jbump:master-SNAPSHOT'
+        implementation "com.github.tommyettinger:jbump:659fea75c3"
         
     }
 }
