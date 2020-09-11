@@ -13,6 +13,8 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.ScalingViewport;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 
+import java.lang.reflect.InvocationTargetException;
+
 public abstract class BaseScreen implements Screen, InputProcessor {
 
     protected Stage mainStage;

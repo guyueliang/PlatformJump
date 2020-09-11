@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
@@ -15,6 +16,8 @@ import com.dongbat.jbump.Collision;
 import com.dongbat.jbump.Response;
 import com.dongbat.jbump.World;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 
 public class LevelScreen extends BaseScreen{
@@ -35,6 +38,9 @@ public class LevelScreen extends BaseScreen{
     public static World<BaseActor> world;
     public static float TILE_DIMENSION = 64f;
 
+    private  TilemapActor tma;
+    private ArrayList<Class<? extends BaseActor>> objClass;
+
     @Override
     public void initialize() {
         Gdx.app.setLogLevel(Application.LOG_DEBUG);
@@ -42,10 +48,51 @@ public class LevelScreen extends BaseScreen{
         entities = new SnapshotArray<>();
         world = new World<>(TILE_DIMENSION);
 
-        TilemapActor tma = new TilemapActor("myMap.tmx",mainStage);
+        tma = new TilemapActor("myMap.tmx",mainStage);
 
+        objClass = new ArrayList<Class<? extends BaseActor>>();
+        objClass.add(Solid.class);
+        objClass.add(Koala.class);
+        objClass.add(Flag.class);
+        objClass.add(Coin.class);
+        objClass.add(Timer.class);
+        objClass.add(Springboard.class);
+        objClass.add(Lock.class);
+        objClass.add(Key.class);
+        objClass.add(Platform.class);
 
+        //创建不同类型的物体以及player
+        for(Class cls : objClass){
+            if(cls != null){
+                try {
+                    createObj(cls);
+                } catch (NoSuchMethodException e) {
+                    e.printStackTrace();
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();
+                } catch (InvocationTargetException e) {
+                    e.printStackTrace();
+                } catch (InstantiationException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+        /**
         //创建solid类型的障碍物
+        try {
+            createObj(Solid.class);
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        }*/
+
+        /**
         for(MapObject obj: tma.getRectangleList("Solid")){
             MapProperties props = obj.getProperties();
            Solid solid =  new Solid((float)props.get("x"),(float)props.get("y"),
@@ -54,14 +101,29 @@ public class LevelScreen extends BaseScreen{
                     );
            entities.add(solid);
            world.add(solid.item,solid.getX()+solid.bboxX,solid.getY()+solid.bboxY, solid.bboxWidth, solid.bboxHeight);
-        }
+        }*/
 
+        /**
         //创建主角
-        MapObject startPoint = tma.getRectangleList("Start").get(0);
+        try {
+            createObj(Koala.class);
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        }*/
+        /**
+        MapObject startPoint = tma.getRectangleList("Koala").get(0);
         MapProperties startProps = startPoint.getProperties();
         jack = new Koala((float)startProps.get("x"),(float)startProps.get("y"),mainStage);
         entities.add(jack);
         world.add(jack.item,jack.getX()+jack.bboxX,jack.getY()+jack.bboxY, jack.bboxWidth, jack.bboxHeight);
+         */
+
 
         //ui设置
         gameOver = false;
@@ -91,15 +153,42 @@ public class LevelScreen extends BaseScreen{
 
 
 
+        /**
         //创建flag物体
+        try {
+            createObj(Flag.class);
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        }*/
+        /**
         for(MapObject obj: tma.getTitleList("Flag")){
             MapProperties props = obj.getProperties();
             Flag flag = new Flag((float)props.get("x"),(float)props.get("y"),mainStage);
 
             entities.add(flag);
             world.add(flag.item,flag.getX()+flag.bboxX,flag.getY()+flag.bboxY, flag.bboxWidth, flag.bboxHeight);
-        }
+        }*/
 
+        /**
+        //创建金币
+        try {
+            createObj(Coin.class);
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        }*/
+        /**
         //创建金币
         for(MapObject obj: tma.getTitleList("Coin")){
             MapProperties props = obj.getProperties();
@@ -108,28 +197,67 @@ public class LevelScreen extends BaseScreen{
             entities.add(coin);
             world.add(coin.item,coin.getX()+coin.bboxX,coin.getY()+coin.bboxY, coin.bboxWidth, coin.bboxHeight);
 
-        }
+        }*/
 
+        /**
         //创建时间计时器
+        try {
+            createObj(Timer.class);
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        }*/
+        /**
         for(MapObject obj: tma.getTitleList("Timer")){
             MapProperties props = obj.getProperties();
            Timer timer = new Timer((float)props.get("x"),(float)props.get("y"),mainStage);
 
             entities.add(timer);
             world.add(timer.item,timer.getX()+timer.bboxX,timer.getY()+timer.bboxY, timer.bboxWidth, timer.bboxHeight);
-        }
+        }*/
 
+        /**
         //创建springboard物体并添加到world中
+        try {
+            createObj(Springboard.class);
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        }*/
+        /**
         for(MapObject obj: tma.getTitleList("Springboard")){
             MapProperties props = obj.getProperties();
            Springboard springboard =  new Springboard((float)props.get("x"),(float)props.get("y"),mainStage);
 
            entities.add(springboard);
            world.add(springboard.item,springboard.getX()+springboard.bboxX,springboard.getY()+springboard.bboxY, springboard.bboxWidth, springboard.bboxHeight);
-        }
+        }*/
         jack.toFront();
 
+        /**
         //创建platform物体
+        try {
+            createObj(Platform.class);
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        }*/
+        /**
         for(MapObject obj : tma.getTitleList("Platform")){
             MapProperties props = obj.getProperties();
             Platform platform = new Platform((float)props.get("x"),(float)props.get("y"),mainStage);
@@ -137,11 +265,24 @@ public class LevelScreen extends BaseScreen{
             entities.add(platform);
             world.add(platform.item,platform.getX()+platform.bboxX,platform.getY()+platform.bboxY, platform.bboxWidth, platform.bboxHeight);
 
-        }
+        }*/
 
         keyList = new ArrayList<Color>();
 
+        /**
         //创建key物体
+        try {
+            createObj(Key.class);
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        }*/
+        /**
         for(MapObject obj: tma.getTitleList("Key")){
             MapProperties props = obj.getProperties();
             Key key = new Key((float)props.get("x"),(float)props.get("y"),mainStage);
@@ -153,9 +294,22 @@ public class LevelScreen extends BaseScreen{
 
             entities.add(key);
             world.add(key.item,key.getX()+key.bboxX,key.getY()+key.bboxY,key.bboxWidth,key.bboxHeight);
-        }
+        }*/
 
+        /**
         //创建lock物体
+        try {
+            createObj(Lock.class);
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        }*/
+        /**
         for(MapObject obj: tma.getTitleList("Lock")){
             MapProperties props = obj.getProperties();
             Lock lock = new Lock((float)props.get("x"),(float)props.get("y"),mainStage);
@@ -167,7 +321,7 @@ public class LevelScreen extends BaseScreen{
 
             entities.add(lock);
             world.add(lock.item,lock.getX()+lock.bboxX,lock.getY()+lock.bboxY,lock.bboxWidth,lock.bboxHeight);
-        }
+        }*/
 
     }
 
@@ -366,5 +520,94 @@ public class LevelScreen extends BaseScreen{
         }
         return false;*/
         return false;
+    }
+
+    //根据传入类的类型进行创建相对应的物体
+    public void createObj(Class cls) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
+        BaseActor actor;
+        Class[] paramTypes;
+        Object[] params;
+        ArrayList<MapObject> mapObj;
+        boolean isSolid = false;
+
+         //注意float.class而不是Float.class
+        String s = cls.getSimpleName();
+        if(s.equals("Solid")){
+            isSolid = true;
+            paramTypes = new Class[]{float.class, float.class, float.class, float.class, Stage.class};
+            //Solid物体是用矩形框表示的，并且不可见
+            mapObj = tma.getRectangleList(s);
+        }else if(s.equals("Koala")){
+
+            paramTypes = new Class[]{float.class, float.class, Stage.class};
+            mapObj = tma.getRectangleList(s);
+
+        }else {
+            paramTypes = new Class[]{float.class, float.class, Stage.class};
+            //其他类型的物体是用tile表示的
+            mapObj = tma.getTitleList(s);
+        }
+
+        //先获取构造函数
+        Constructor<BaseActor> con = cls.getConstructor(paramTypes);
+
+        for(MapObject obj: mapObj){
+            MapProperties props = obj.getProperties();
+            float x = (float)props.get("x");
+            float y = (float)props.get("y");
+
+            //Solid类型物体多出2个参数
+
+            if(isSolid){
+                float width = (float)props.get("width");
+                float height = (float)props.get("height");
+                params = new Object[]{x,y,width,height,mainStage};
+            }else{
+                params = new Object[]{x, y, mainStage};
+            }
+
+            //根据构造函数创建新的对象
+            actor = con.newInstance(params);
+
+            if(actor instanceof Lock || actor instanceof Key){
+                String color = (String)props.get("color");
+                if(color.equals("red"))
+                    actor.setColor(Color.RED);
+                else
+                    actor.setColor(Color.WHITE);
+
+            }else if(actor instanceof Koala){
+                jack = (Koala) actor;
+            }
+
+            entities.add(actor);
+            world.add(actor.item,actor.getX()+actor.bboxX,actor.getY()+actor.bboxY, actor.bboxWidth, actor.bboxHeight);
+
+
+
+            //for debug
+            if(actor instanceof Timer){
+                Gdx.app.log(TAG,"creatObj() has created a Timer obj");
+            }else if(actor instanceof Coin){
+                Gdx.app.log(TAG,"creatObj() has created a Coin obj");
+            }else if(actor instanceof Springboard){
+                Gdx.app.log(TAG,"creatObj() has created a Springboard obj");
+            }else if(actor instanceof Lock){
+                Gdx.app.log(TAG,"creatObj() has created a Lock obj");
+            }else if(actor instanceof Key){
+                Gdx.app.log(TAG,"creatObj() has created a Key obj");
+            }else if(actor instanceof Flag){
+                Gdx.app.log(TAG,"creatObj() has created a Flag obj");
+            }else if(actor instanceof Platform){
+                Gdx.app.log(TAG,"creatObj() has created a Platform obj");
+            }else if(actor instanceof Solid){
+                Gdx.app.log(TAG,"creatObj() has created a Solid obj");
+
+            }else if(actor instanceof Koala){
+                Gdx.app.log(TAG,"creatObj() has created a Koala obj");
+            }
+
+        }
+
     }
 }

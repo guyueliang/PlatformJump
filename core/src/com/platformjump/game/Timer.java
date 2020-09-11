@@ -16,6 +16,7 @@ public class Timer extends BaseActor {
     protected TextureRegion region;
     protected ShapeDrawer drawer;
 
+
     public Timer(float x, float y, Stage s) {
         super(x, y, s);
         loadTexture("items/timer.png");

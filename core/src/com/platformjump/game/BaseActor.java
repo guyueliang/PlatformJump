@@ -61,8 +61,6 @@ public class BaseActor extends Group {
     //绘制pixmap类型的图形
     //protected Texture tt;
 
-
-
     public BaseActor(float x, float y, Stage s){
         super();
         setPosition(x,y);
