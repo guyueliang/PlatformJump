@@ -1,4 +1,4 @@
-package com.platformjump.game;
+package com.platformjump.game.BaseFramework;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;

@@ -1,4 +1,4 @@
-package com.platformjump.game;
+package com.platformjump.game.BaseFramework;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;

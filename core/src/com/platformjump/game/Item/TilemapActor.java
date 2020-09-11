@@ -1,4 +1,4 @@
-package com.platformjump.game;
+package com.platformjump.game.Item;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Batch;
@@ -13,6 +13,7 @@ import com.badlogic.gdx.maps.tiled.objects.TiledMapTileMapObject;
 import com.badlogic.gdx.maps.tiled.renderers.OrthoCachedTiledMapRenderer;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.platformjump.game.BaseFramework.BaseActor;
 
 import java.util.ArrayList;
 import java.util.Iterator;

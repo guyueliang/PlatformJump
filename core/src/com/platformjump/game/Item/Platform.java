@@ -1,12 +1,8 @@
-package com.platformjump.game;
+package com.platformjump.game.Item;
 
-import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.Pixmap;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.dongbat.jbump.Item;
-import space.earlygrey.shapedrawer.ShapeDrawer;
+import com.platformjump.game.BaseFramework.BaseActor;
 
 public class Platform extends Solid{
     public Platform(float x, float y, Stage s) {

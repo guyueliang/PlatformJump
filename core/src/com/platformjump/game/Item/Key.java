@@ -1,4 +1,4 @@
-package com.platformjump.game;
+package com.platformjump.game.Item;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
@@ -10,22 +10,26 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.dongbat.jbump.Item;
 import com.dongbat.jbump.Rect;
+import com.platformjump.game.BaseFramework.BaseActor;
+import com.platformjump.game.LevelScreen;
 import space.earlygrey.shapedrawer.ShapeDrawer;
 
-public class Timer extends BaseActor {
+public class Key extends BaseActor {
+
     protected TextureRegion region;
     protected ShapeDrawer drawer;
 
-
-    public Timer(float x, float y, Stage s) {
+    public Key(float x, float y, Stage s) {
         super(x, y, s);
-        loadTexture("items/timer.png");
+        loadTexture("items/key.png");
+        rotateBy(10);
 
-        Action pulse = Actions.sequence(
-                Actions.scaleTo(1.1f,1.1f,0.5f),
-                Actions.scaleTo(1.0f,1.0f,0.5f)
+        Action tilt = Actions.sequence(
+                Actions.rotateBy(-20,0.5f),
+                Actions.rotateBy(20,0.5f)
         );
-        addAction(Actions.forever(pulse));
+
+        addAction(Actions.forever(tilt));
 
         bboxWidth = 32;
         bboxHeight = 32;

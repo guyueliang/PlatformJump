@@ -2,25 +2,25 @@ package com.platformjump.game;
 
 import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.MapProperties;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.SnapshotArray;
-import com.dongbat.jbump.Collision;
-import com.dongbat.jbump.Response;
 import com.dongbat.jbump.World;
+import com.platformjump.game.BaseFramework.BaseActor;
+import com.platformjump.game.BaseFramework.BaseGame;
+import com.platformjump.game.BaseFramework.BaseScreen;
+import com.platformjump.game.Item.*;
+import com.platformjump.game.Player.Koala;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 
-public class LevelScreen extends BaseScreen{
+public class LevelScreen extends BaseScreen {
     public  static final String TAG = LevelScreen.class.getSimpleName();
 
     Koala jack;

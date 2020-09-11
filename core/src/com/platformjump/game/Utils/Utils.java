@@ -22,7 +22,7 @@
  * SOFTWARE.
  ******************************************************************************/
 
-package com.platformjump.game;
+package com.platformjump.game.Utils;
 
 public class Utils {
 

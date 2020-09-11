@@ -1,4 +1,4 @@
-package com.platformjump.game;
+package com.platformjump.game.Item;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
@@ -8,6 +8,8 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.dongbat.jbump.Item;
 import com.dongbat.jbump.Rect;
+import com.platformjump.game.BaseFramework.BaseActor;
+import com.platformjump.game.LevelScreen;
 import space.earlygrey.shapedrawer.ShapeDrawer;
 
 public class Flag extends BaseActor {

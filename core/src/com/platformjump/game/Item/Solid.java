@@ -1,4 +1,4 @@
-package com.platformjump.game;
+package com.platformjump.game.Item;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
@@ -8,16 +8,23 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.dongbat.jbump.Item;
 import com.dongbat.jbump.Rect;
+import com.platformjump.game.BaseFramework.BaseActor;
+import com.platformjump.game.LevelScreen;
 import space.earlygrey.shapedrawer.ShapeDrawer;
 
-public class Lock extends Solid{
+public class Solid extends BaseActor {
+    private boolean enabled;
 
     protected TextureRegion region;
     protected ShapeDrawer drawer;
 
-    public Lock(float x, float y, Stage s) {
-        super(x, y,32,32,  s);
-        loadTexture("items/lock.png");
+    public Solid(float x, float y,float width,float height, Stage s) {
+        super(x, y, s);
+        //loadTexture("Solid.png");
+        setSize(width,height);
+        setBoundaryRectangle();
+        //setBoundaryPolygon(6);
+        enabled = true;
 
         bboxWidth = 32;
         bboxHeight = 32;
@@ -31,6 +38,15 @@ public class Lock extends Solid{
         pixmap.dispose();
         region = new TextureRegion(texture, 0, 0, 1, 1);
         drawer = new ShapeDrawer(s.getBatch(),region);
+
+    }
+
+    public void setEnabled(boolean b){
+        enabled = b;
+    }
+
+    public boolean isEnabled(){
+        return enabled;
     }
 
     @Override

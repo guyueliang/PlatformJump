@@ -1,6 +1,8 @@
 package com.platformjump.game;
 
-public class platformjump extends BaseGame{
+import com.platformjump.game.BaseFramework.BaseGame;
+
+public class platformjump extends BaseGame {
 
     public void create(){
         super.create();

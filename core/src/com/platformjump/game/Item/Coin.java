@@ -1,4 +1,4 @@
-package com.platformjump.game;
+package com.platformjump.game.Item;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
@@ -8,23 +8,22 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.dongbat.jbump.Item;
 import com.dongbat.jbump.Rect;
+import com.platformjump.game.BaseFramework.BaseActor;
+import com.platformjump.game.LevelScreen;
 import space.earlygrey.shapedrawer.ShapeDrawer;
 
-public class Springboard extends BaseActor{
+public class Coin extends BaseActor {
 
     protected TextureRegion region;
     protected ShapeDrawer drawer;
 
-    public Springboard(float x, float y, Stage s) {
+    public Coin(float x, float y, Stage s) {
         super(x, y, s);
-        bboxX = 0;
-        bboxY = 0;
-        bboxWidth = 64;
+        loadAnimationFromSheet("items/coin.png",1,6,0.1f,true);
+
+        bboxWidth = 32;
         bboxHeight = 32;
-
         item = new Item<BaseActor>(this);
-
-        loadAnimationFromSheet("items/springboard.png",1,3,0.2f,true);
 
         Pixmap pixmap = new Pixmap(1, 1, Pixmap.Format.RGBA8888);
         pixmap.setColor(Color.WHITE);
@@ -49,5 +48,4 @@ public class Springboard extends BaseActor{
                 drawer.rectangle(rect.x, rect.y, rect.w, rect.h);
         }
     }
-
 }

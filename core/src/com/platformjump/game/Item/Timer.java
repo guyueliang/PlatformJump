@@ -1,28 +1,33 @@
-package com.platformjump.game;
+package com.platformjump.game.Item;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.scenes.scene2d.Action;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.dongbat.jbump.Item;
 import com.dongbat.jbump.Rect;
+import com.platformjump.game.BaseFramework.BaseActor;
+import com.platformjump.game.LevelScreen;
 import space.earlygrey.shapedrawer.ShapeDrawer;
 
-public class Solid extends BaseActor{
-    private boolean enabled;
-
+public class Timer extends BaseActor {
     protected TextureRegion region;
     protected ShapeDrawer drawer;
 
-    public Solid(float x, float y,float width,float height, Stage s) {
+
+    public Timer(float x, float y, Stage s) {
         super(x, y, s);
-        //loadTexture("Solid.png");
-        setSize(width,height);
-        setBoundaryRectangle();
-        //setBoundaryPolygon(6);
-        enabled = true;
+        loadTexture("items/timer.png");
+
+        Action pulse = Actions.sequence(
+                Actions.scaleTo(1.1f,1.1f,0.5f),
+                Actions.scaleTo(1.0f,1.0f,0.5f)
+        );
+        addAction(Actions.forever(pulse));
 
         bboxWidth = 32;
         bboxHeight = 32;
@@ -36,15 +41,6 @@ public class Solid extends BaseActor{
         pixmap.dispose();
         region = new TextureRegion(texture, 0, 0, 1, 1);
         drawer = new ShapeDrawer(s.getBatch(),region);
-
-    }
-
-    public void setEnabled(boolean b){
-        enabled = b;
-    }
-
-    public boolean isEnabled(){
-        return enabled;
     }
 
     @Override

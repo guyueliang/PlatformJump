@@ -1,4 +1,4 @@
-package com.platformjump.game;
+package com.platformjump.game.Player;
 
 import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Gdx;
@@ -9,17 +9,19 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.math.MathUtils;
-import com.badlogic.gdx.scenes.scene2d.EventListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.dongbat.jbump.*;
+import com.platformjump.game.BaseFramework.BaseActor;
+import com.platformjump.game.Item.*;
+import com.platformjump.game.LevelScreen;
+import com.platformjump.game.Utils.Utils;
 import space.earlygrey.shapedrawer.ShapeDrawer;
 
 import java.util.ArrayList;
 //import sun.security.krb5.internal.APOptions;
 
-public class Koala extends BaseActor{
+public class Koala extends BaseActor {
     public static final String TAG = Koala.class.getSimpleName();
     private Animation stand;
     private Animation walk;
@@ -296,7 +298,7 @@ public class Koala extends BaseActor{
     public boolean isOnSolid(){
         /**
         //遍历所有的solid物体
-        for(BaseActor actor: BaseActor.getList(getStage(),"com.platformjump.game.Solid")){
+        for(BaseActor actor: BaseActor.getList(getStage(),"com.platformjump.game.Item.Solid")){
             Solid solid = (Solid)actor;
             //这里多出一个判断，增加正确的可靠性
             if(belowOverlaps(solid) && solid.isEnabled() && (belowSensor.getY()-solid.getY())>=(solid.getHeight()-10)){
