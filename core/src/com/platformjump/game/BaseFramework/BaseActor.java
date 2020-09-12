@@ -12,12 +12,20 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.SnapshotArray;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.dongbat.jbump.Item;
+import com.dongbat.jbump.World;
 
 import java.util.ArrayList;
 
 public class BaseActor extends Group {
+
+    /**
+    protected SnapshotArray<BaseActor> entities;
+    protected World<BaseActor> world;
+    protected BaseStage baseStage;
+     */
 
     private Animation<TextureRegion> animation;
     private float elapsedTime;
@@ -58,10 +66,12 @@ public class BaseActor extends Group {
     //绘制pixmap类型的图形
     //protected Texture tt;
 
-    public BaseActor(float x, float y, Stage s){
+    public BaseActor(float x, float y, BaseStage s){
         super();
         setPosition(x,y);
         s.addActor(this);
+
+        //baseStage = s;
 
         animation = null;
         elapsedTime = 0;
@@ -112,6 +122,11 @@ public class BaseActor extends Group {
         if(!animationPaused){
             elapsedTime += delta;
         }
+
+        /**
+        entities = (BaseGameStage)baseStage.getEntities();
+        world = baseStage.getWorld();
+         */
 
     }
 
@@ -485,6 +500,21 @@ public class BaseActor extends Group {
     }
 
 
+    /**
+    public SnapshotArray<BaseActor> getEntities() {
+        return entities;
+    }
 
+    public void setEntities(SnapshotArray<BaseActor> entities) {
+        this.entities = entities;
+    }
+
+    public World<BaseActor> getWorld() {
+        return world;
+    }
+
+    public void setWorld(World<BaseActor> world) {
+        this.world = world;
+    }*/
 }
 

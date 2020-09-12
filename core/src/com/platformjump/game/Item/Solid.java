@@ -9,6 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.dongbat.jbump.Item;
 import com.dongbat.jbump.Rect;
 import com.platformjump.game.BaseFramework.BaseActor;
+import com.platformjump.game.BaseFramework.BaseStage;
 import com.platformjump.game.GameStage;
 import com.platformjump.game.LevelScreen;
 import space.earlygrey.shapedrawer.ShapeDrawer;
@@ -19,7 +20,7 @@ public class Solid extends BaseActor {
     protected TextureRegion region;
     protected ShapeDrawer drawer;
 
-    public Solid(float x, float y,float width,float height, Stage s) {
+    public Solid(float x, float y,float width,float height, BaseStage s) {
         super(x, y, s);
         //loadTexture("Solid.png");
         setSize(width,height);

@@ -9,6 +9,8 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.SnapshotArray;
 import com.dongbat.jbump.World;
 import com.platformjump.game.BaseFramework.BaseActor;
+import com.platformjump.game.BaseFramework.BaseGame;
+import com.platformjump.game.BaseFramework.BaseGameStage;
 import com.platformjump.game.BaseFramework.BaseStage;
 import com.platformjump.game.Item.*;
 import com.platformjump.game.Player.Koala;
@@ -17,32 +19,51 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 
-public class GameStage extends BaseStage {
+public class GameStage extends BaseGameStage {
 
-    public static Koala jack;
-    public static SnapshotArray<BaseActor> entities;
-    public static World<BaseActor> world;
+    /**
+    public int test;
+    private  Koala jack;
+    private  SnapshotArray<BaseActor> entities;
+    private  World<BaseActor> world;
     public static float TILE_DIMENSION = 64f;
 
     private TilemapActor tma;
     private ArrayList<Class<? extends BaseActor>> objClass;
+     */
 
     public  static final String TAG = GameStage.class.getSimpleName();
 
+    private int count = 0;
     public GameStage(platformjump mainGame) {
         super(mainGame);
+        //这个init()可以去掉，因为在其父类BaseStage的构造函数中已经调用init()函数了
         init();
+
+
     }
 
-    private void init(){
-        Gdx.app.setLogLevel(Application.LOG_DEBUG);
+    private void print() {Gdx.app.log(TAG,"count= " + count);}
 
+
+    @Override
+    public void init(){
+        super.init();
+        Gdx.app.setLogLevel(Application.LOG_DEBUG);
+        tma = new TilemapActor("myMap.tmx",this);
+
+        count++;
+        print();
+        StackTraceElement[] s = new Exception().getStackTrace();
+        System.out.println(s[1].getClassName() + s[1].getMethodName());
+        /**
         entities = new SnapshotArray<>();
         world = new World<>(TILE_DIMENSION);
 
         tma = new TilemapActor("myMap.tmx",this);
 
         objClass = new ArrayList<Class<? extends BaseActor>>();
+         */
         objClass.add(Solid.class);
         objClass.add(Koala.class);
         objClass.add(Flag.class);
@@ -72,6 +93,11 @@ public class GameStage extends BaseStage {
 
         jack.toFront();
 
+        jack.setEntities(getEntities());
+        jack.setWorld(getWorld());
+
+        int count = world.countItems();
+
     }
 
 
@@ -82,21 +108,22 @@ public class GameStage extends BaseStage {
         Object[] params;
         ArrayList<MapObject> mapObj;
         boolean isSolid = false;
+        int countTimer = 0;
 
         //注意float.class而不是Float.class
         String s = cls.getSimpleName();
         if(s.equals("Solid")){
             isSolid = true;
-            paramTypes = new Class[]{float.class, float.class, float.class, float.class, Stage.class};
+            paramTypes = new Class[]{float.class, float.class, float.class, float.class, BaseStage.class};
             //Solid物体是用矩形框表示的，并且不可见
             mapObj = tma.getRectangleList(s);
         }else if(s.equals("Koala")){
 
-            paramTypes = new Class[]{float.class, float.class, Stage.class};
+            paramTypes = new Class[]{float.class, float.class, BaseGameStage.class};
             mapObj = tma.getRectangleList(s);
 
         }else {
-            paramTypes = new Class[]{float.class, float.class, Stage.class};
+            paramTypes = new Class[]{float.class, float.class, BaseStage.class};
             //其他类型的物体是用tile表示的
             mapObj = tma.getTitleList(s);
         }
@@ -140,7 +167,9 @@ public class GameStage extends BaseStage {
 
             //for debug
             if(actor instanceof Timer){
+                countTimer++;
                 Gdx.app.log(TAG,"creatObj() has created a Timer obj");
+                Gdx.app.log(TAG,"Timer count = " + countTimer);
             }else if(actor instanceof Coin){
                 Gdx.app.log(TAG,"creatObj() has created a Coin obj");
             }else if(actor instanceof Springboard){
@@ -163,4 +192,17 @@ public class GameStage extends BaseStage {
         }
 
     }
+
+    /**
+    public SnapshotArray<BaseActor> getEntities() {
+        return entities;
+    }
+
+    public World<BaseActor> getWorld() {
+        return world;
+    }
+
+    public Koala getJack() {
+        return jack;
+    }*/
 }

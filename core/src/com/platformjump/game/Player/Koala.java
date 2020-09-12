@@ -11,8 +11,12 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
+import com.badlogic.gdx.utils.SnapshotArray;
 import com.dongbat.jbump.*;
 import com.platformjump.game.BaseFramework.BaseActor;
+import com.platformjump.game.BaseFramework.BaseGameActor;
+import com.platformjump.game.BaseFramework.BaseGameStage;
+import com.platformjump.game.BaseFramework.BaseStage;
 import com.platformjump.game.GameStage;
 import com.platformjump.game.Item.*;
 import com.platformjump.game.LevelScreen;
@@ -22,7 +26,7 @@ import space.earlygrey.shapedrawer.ShapeDrawer;
 import java.util.ArrayList;
 //import sun.security.krb5.internal.APOptions;
 
-public class Koala extends BaseActor {
+public class Koala extends BaseGameActor {
     public static final String TAG = Koala.class.getSimpleName();
     private Animation stand;
     private Animation walk;
@@ -70,7 +74,7 @@ public class Koala extends BaseActor {
     private boolean isWin;
     private  float gameLeftTime;
 
-    public Koala(float x, float y, Stage s) {
+    public Koala(float x, float y, BaseGameStage s) {
         super(x, y, s);
         stand = loadTexture("koala/stand.png");
         String[] walkFileNames = {
@@ -161,7 +165,7 @@ public class Koala extends BaseActor {
             jumping = false;
         if(upJustPressed){
             //判断是否在地面
-            GameStage.world.project(item,getX()+bboxX,getY()+bboxY,bboxWidth,bboxHeight,
+            world.project(item,getX()+bboxX,getY()+bboxY,bboxWidth,bboxHeight,
                     getX()+bboxX,getY()+bboxY-.1f,PLAYER_COLLISION_FILTER,tempCollisions);
             if(tempCollisions.size() > 0){
                 jumping = true;
@@ -184,9 +188,10 @@ public class Koala extends BaseActor {
         downPlatform = Gdx.input.isKeyPressed(Input.Keys.DOWN);
 
 
+        //TODO 使player不与特定关卡的world和entitines变量相关，这样可以去耦合，使player游戏逻辑更加通用
         //处理碰撞
         boolean inAir = true;
-        Response.Result result = GameStage.world.move(item, getX()+bboxX,getY()+bboxY,PLAYER_COLLISION_FILTER);
+        Response.Result result = world.move(item, getX()+bboxX,getY()+bboxY,PLAYER_COLLISION_FILTER);
         for(int i = 0; i < result.projectedCollisions.size();i++){
             Collision collision = result.projectedCollisions.get(i);
 
@@ -219,8 +224,8 @@ public class Koala extends BaseActor {
                 }else if(solid instanceof Lock){
                     solid.addAction(Actions.fadeOut(0.5f));
                     solid.addAction(Actions.after(Actions.removeActor()));
-                    GameStage.entities.removeValue(solid,true);
-                    GameStage.world.remove(collision.other);
+                    entities.removeValue(solid,true);
+                    world.remove(collision.other);
                     solid.remove();
                 }
             }else if(collision.other.userData instanceof Springboard){
@@ -231,8 +236,8 @@ public class Koala extends BaseActor {
                 //如果是金币
                 Coin coin = (Coin)collision.other.userData;
                 addCoin(1);
-                GameStage.entities.removeValue(coin,true);
-                GameStage.world.remove(collision.other);
+                entities.removeValue(coin,true);
+                world.remove(collision.other);
                 coin.remove();
             }else if(collision.other.userData instanceof Key){
                 //如果是钥匙
@@ -241,8 +246,8 @@ public class Koala extends BaseActor {
                 keyList.add(key.getColor());
                 setKeyColor(key.getColor());
 
-                GameStage.entities.removeValue(key,true);
-                GameStage.world.remove(collision.other);
+                entities.removeValue(key,true);
+                world.remove(collision.other);
                 key.remove();
             }else if(collision.other.userData instanceof Flag){
                 setWin(true);
@@ -250,8 +255,8 @@ public class Koala extends BaseActor {
             }else if(collision.other.userData instanceof Timer){
                 Timer timer = (Timer) collision.other.userData;
                 gameLeftTime += 20;
-                GameStage.entities.removeValue(timer,false);
-                GameStage.world.remove(collision.other);
+                entities.removeValue(timer,false);
+                world.remove(collision.other);
                 timer.remove();
 
             }
@@ -260,7 +265,7 @@ public class Koala extends BaseActor {
         }
 
         //根据碰撞，更新位置
-        Rect rect = GameStage.world.getRect(item);
+        Rect rect = world.getRect(item);
         if(rect != null){
             setX(rect.x-bboxX);
             setY(rect.y-bboxY);
@@ -297,6 +302,7 @@ public class Koala extends BaseActor {
         return belowSensor.overlaps(actor);
     }
 
+
     public boolean isOnSolid(){
         /**
         //遍历所有的solid物体
@@ -308,7 +314,7 @@ public class Koala extends BaseActor {
             }
         }*/
 
-        Response.Result result = GameStage.world.move(item, getX() + bboxX, getY() + bboxY, PLAYER_COLLISION_FILTER);
+        Response.Result result = world.move(item, getX() + bboxX, getY() + bboxY, PLAYER_COLLISION_FILTER);
         for (int i = 0; i < result.projectedCollisions.size(); i++){
             Collision collision = result.projectedCollisions.get(i);
             if (collision.other.userData instanceof Solid){

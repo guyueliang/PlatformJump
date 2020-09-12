@@ -33,7 +33,9 @@ public class UIStage extends BaseStage {
         init();
     }
 
-    private void init(){
+    @Override
+    public void init(){
+
         //ui设置
         gameOver = false;
         win = false;

@@ -11,6 +11,7 @@ import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.dongbat.jbump.Item;
 import com.dongbat.jbump.Rect;
 import com.platformjump.game.BaseFramework.BaseActor;
+import com.platformjump.game.BaseFramework.BaseStage;
 import com.platformjump.game.GameStage;
 import com.platformjump.game.LevelScreen;
 import space.earlygrey.shapedrawer.ShapeDrawer;
@@ -20,7 +21,7 @@ public class Key extends BaseActor {
     protected TextureRegion region;
     protected ShapeDrawer drawer;
 
-    public Key(float x, float y, Stage s) {
+    public Key(float x, float y, BaseStage s) {
         super(x, y, s);
         loadTexture("items/key.png");
         rotateBy(10);

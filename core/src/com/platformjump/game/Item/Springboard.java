@@ -9,6 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.dongbat.jbump.Item;
 import com.dongbat.jbump.Rect;
 import com.platformjump.game.BaseFramework.BaseActor;
+import com.platformjump.game.BaseFramework.BaseStage;
 import com.platformjump.game.GameStage;
 import com.platformjump.game.LevelScreen;
 import space.earlygrey.shapedrawer.ShapeDrawer;
@@ -18,7 +19,7 @@ public class Springboard extends BaseActor {
     protected TextureRegion region;
     protected ShapeDrawer drawer;
 
-    public Springboard(float x, float y, Stage s) {
+    public Springboard(float x, float y, BaseStage s) {
         super(x, y, s);
         bboxX = 0;
         bboxY = 0;

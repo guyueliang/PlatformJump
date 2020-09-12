@@ -1,9 +1,6 @@
 package com.platformjump.game.BaseFramework;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.InputMultiplexer;
-import com.badlogic.gdx.InputProcessor;
-import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.*;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
@@ -13,6 +10,7 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.ScalingViewport;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.platformjump.game.GameStage;
+import com.platformjump.game.LevelScreen;
 import com.platformjump.game.UIStage;
 import com.platformjump.game.platformjump;
 
@@ -20,15 +18,20 @@ import java.lang.reflect.InvocationTargetException;
 
 public abstract class BaseScreen implements Screen, InputProcessor {
 
+    public  static final String TAG = BaseScreen.class.getSimpleName();
     protected GameStage mainStage;
     protected UIStage uiStage;
    // protected Table uiTable;
     platformjump mainGame;
+    private int count = 0;
 
     public BaseScreen(platformjump mainGame){
         this.mainGame = mainGame;
         mainStage = new GameStage(this.mainGame);
         uiStage = new UIStage(this.mainGame);
+        Gdx.app.setLogLevel(Application.LOG_DEBUG);
+        count++;
+
 
         /**
         uiTable = new Table();
@@ -37,7 +40,10 @@ public abstract class BaseScreen implements Screen, InputProcessor {
         UIStage.addActor(uiTable);*/
 
         initialize();
+        print();
     }
+    private void print() {Gdx.app.log(TAG,"count= " + count);}
+
 
     public abstract void initialize();
     public abstract void update(float dt);
