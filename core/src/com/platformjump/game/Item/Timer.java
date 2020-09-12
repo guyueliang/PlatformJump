@@ -11,6 +11,7 @@ import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.dongbat.jbump.Item;
 import com.dongbat.jbump.Rect;
 import com.platformjump.game.BaseFramework.BaseActor;
+import com.platformjump.game.GameStage;
 import com.platformjump.game.LevelScreen;
 import space.earlygrey.shapedrawer.ShapeDrawer;
 
@@ -50,7 +51,7 @@ public class Timer extends BaseActor {
         // 使用shapedrawer绘制图形
         if (region != null && drawer != null) {
             drawer.setColor(1, 0, 0, 1);
-            Rect rect = LevelScreen.world.getRect(item);
+            Rect rect = GameStage.world.getRect(item);
             if(rect !=null)
                 drawer.rectangle(rect.x, rect.y, rect.w, rect.h);
         }

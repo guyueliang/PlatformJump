@@ -6,13 +6,10 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.SnapshotArray;
 import com.dongbat.jbump.World;
 import com.platformjump.game.BaseFramework.BaseActor;
-import com.platformjump.game.BaseFramework.BaseGame;
-import com.platformjump.game.BaseFramework.BaseScreen;
+import com.platformjump.game.BaseFramework.BaseStage;
 import com.platformjump.game.Item.*;
 import com.platformjump.game.Player.Koala;
 
@@ -20,43 +17,30 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 
-//TODO 需要重构代码，将UI逻辑和游戏逻辑分开，分别在不同的舞台中实现
-public class LevelScreen extends BaseScreen {
-    public  static final String TAG = LevelScreen.class.getSimpleName();
+public class GameStage extends BaseStage {
 
-    //Koala jack;
-    /**
-    boolean gameOver;
-    int coins;
-    float time;
-    Label coinLabel;
-    Table keyTable;
-    Label timeLabel;
-    Label messageLabel;
-   // ArrayList<Color> keyList;
-    BaseActor keyIcon;*/
-
-    /**
+    public static Koala jack;
     public static SnapshotArray<BaseActor> entities;
     public static World<BaseActor> world;
     public static float TILE_DIMENSION = 64f;
 
-    private  TilemapActor tma;
-    private ArrayList<Class<? extends BaseActor>> objClass;*/
+    private TilemapActor tma;
+    private ArrayList<Class<? extends BaseActor>> objClass;
 
-    public LevelScreen(platformjump mainGame) {
+    public  static final String TAG = GameStage.class.getSimpleName();
+
+    public GameStage(platformjump mainGame) {
         super(mainGame);
+        init();
     }
 
-    @Override
-    public void initialize() {
+    private void init(){
         Gdx.app.setLogLevel(Application.LOG_DEBUG);
 
-        /**
         entities = new SnapshotArray<>();
         world = new World<>(TILE_DIMENSION);
 
-        tma = new TilemapActor("myMap.tmx",mainStage);
+        tma = new TilemapActor("myMap.tmx",this);
 
         objClass = new ArrayList<Class<? extends BaseActor>>();
         objClass.add(Solid.class);
@@ -84,100 +68,13 @@ public class LevelScreen extends BaseScreen {
                     e.printStackTrace();
                 }
             }
-        }*/
-
-
-        /**
-        //ui设置
-        gameOver = false;
-        coins = 0;
-        time = 300;
-        coinLabel = new Label("Coins: " +coins, BaseGame.labelStyle);
-        coinLabel.setColor(Color.GOLD);
-        keyTable = new Table();
-        timeLabel = new Label("Time: " + (int)time,BaseGame.labelStyle);
-        timeLabel.setColor(Color.LIGHT_GRAY);
-        messageLabel = new Label("Message",BaseGame.labelStyle);
-        messageLabel.setVisible(false);
-
-        uiTable.pad(20);//上下左右各填充20个像素
-        uiTable.add(coinLabel);
-        uiTable.add(keyTable).expandX();
-
-        keyIcon = new BaseActor(0,0,UIStage);
-        keyIcon.loadTexture("key-icon.png");
-        //keyIcon.setColor(keyColor);
-        keyIcon.setVisible(false);
-        keyTable.add(keyIcon);
-
-        uiTable.add(timeLabel);
-        uiTable.row();
-        uiTable.add(messageLabel).colspan(3).expandY();*/
-
-
-
-
-       // jack.toFront();
-
-
-        //keyList = new ArrayList<Color>();
-
-
-
-
-    }
-
-    @Override
-    public void update(float dt) {
-
-        if(uiStage.isGameOver())
-            return;
-
-        //在这里主要处理player与UI相关的事情
-        uiStage.setWin(GameStage.jack.isWin());
-        uiStage.setCoins(GameStage.jack.getCoin());
-        if(GameStage.jack.isHasKey()){
-            uiStage.setHasKey(GameStage.jack.isHasKey());
-            uiStage.setKeyColor(GameStage.jack.getKeyColor());
-        }
-        //uiStage.setHasKey(GameStage.jack.isHasKey());
-        uiStage.setTime(GameStage.jack.getGameLeftTime());
-
-        /**
-        //判断游戏是否结束
-        if(gameOver)
-            return;
-
-        if(jack.isWin()){
-            messageLabel.setText("You Win!");
-            messageLabel.setColor(Color.LIME);
-            messageLabel.setVisible(true);
-            gameOver = true;
         }
 
-        timeLabel.setText("Time: " + (int)jack.getGameLeftTime());
-
-        if(jack.getGameLeftTime() <= 0){
-            messageLabel.setText("Time Up- Game Over");
-            messageLabel.setColor(Color.RED);
-            messageLabel.setVisible(true);
-            //jack.remove();
-            gameOver = true;
-        }
-
-        coinLabel.setText("Coins: " + jack.getCoin());
-
-        if(jack.isHasKey()){
-            keyIcon.setColor(jack.getKeyColor());
-            keyIcon.setVisible(true);
-        }
-         */
-
+        jack.toFront();
 
     }
 
 
-    /**
     //根据传入类的类型进行创建相对应的物体
     public void createObj(Class cls) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
         BaseActor actor;
@@ -186,7 +83,7 @@ public class LevelScreen extends BaseScreen {
         ArrayList<MapObject> mapObj;
         boolean isSolid = false;
 
-         //注意float.class而不是Float.class
+        //注意float.class而不是Float.class
         String s = cls.getSimpleName();
         if(s.equals("Solid")){
             isSolid = true;
@@ -217,9 +114,9 @@ public class LevelScreen extends BaseScreen {
             if(isSolid){
                 float width = (float)props.get("width");
                 float height = (float)props.get("height");
-                params = new Object[]{x,y,width,height,mainStage};
+                params = new Object[]{x,y,width,height,this};
             }else{
-                params = new Object[]{x, y, mainStage};
+                params = new Object[]{x, y, this};
             }
 
             //根据构造函数创建新的对象
@@ -265,5 +162,5 @@ public class LevelScreen extends BaseScreen {
 
         }
 
-    }*/
+    }
 }

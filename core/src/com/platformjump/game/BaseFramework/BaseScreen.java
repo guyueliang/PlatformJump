@@ -12,22 +12,29 @@ import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.ScalingViewport;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
+import com.platformjump.game.GameStage;
+import com.platformjump.game.UIStage;
+import com.platformjump.game.platformjump;
 
 import java.lang.reflect.InvocationTargetException;
 
 public abstract class BaseScreen implements Screen, InputProcessor {
 
-    protected Stage mainStage;
-    protected Stage uiStage;
-    protected Table uiTable;
+    protected GameStage mainStage;
+    protected UIStage uiStage;
+   // protected Table uiTable;
+    platformjump mainGame;
 
-    public BaseScreen(){
-        mainStage = new Stage();
-        uiStage = new Stage();
+    public BaseScreen(platformjump mainGame){
+        this.mainGame = mainGame;
+        mainStage = new GameStage(this.mainGame);
+        uiStage = new UIStage(this.mainGame);
+
+        /**
         uiTable = new Table();
         //将table扩展到stage的尺寸
         uiTable.setFillParent(true);
-        uiStage.addActor(uiTable);
+        UIStage.addActor(uiTable);*/
 
         initialize();
     }

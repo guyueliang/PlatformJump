@@ -13,6 +13,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.dongbat.jbump.*;
 import com.platformjump.game.BaseFramework.BaseActor;
+import com.platformjump.game.GameStage;
 import com.platformjump.game.Item.*;
 import com.platformjump.game.LevelScreen;
 import com.platformjump.game.Utils.Utils;
@@ -160,7 +161,7 @@ public class Koala extends BaseActor {
             jumping = false;
         if(upJustPressed){
             //判断是否在地面
-            LevelScreen.world.project(item,getX()+bboxX,getY()+bboxY,bboxWidth,bboxHeight,
+            GameStage.world.project(item,getX()+bboxX,getY()+bboxY,bboxWidth,bboxHeight,
                     getX()+bboxX,getY()+bboxY-.1f,PLAYER_COLLISION_FILTER,tempCollisions);
             if(tempCollisions.size() > 0){
                 jumping = true;
@@ -185,7 +186,7 @@ public class Koala extends BaseActor {
 
         //处理碰撞
         boolean inAir = true;
-        Response.Result result = LevelScreen.world.move(item, getX()+bboxX,getY()+bboxY,PLAYER_COLLISION_FILTER);
+        Response.Result result = GameStage.world.move(item, getX()+bboxX,getY()+bboxY,PLAYER_COLLISION_FILTER);
         for(int i = 0; i < result.projectedCollisions.size();i++){
             Collision collision = result.projectedCollisions.get(i);
 
@@ -218,8 +219,8 @@ public class Koala extends BaseActor {
                 }else if(solid instanceof Lock){
                     solid.addAction(Actions.fadeOut(0.5f));
                     solid.addAction(Actions.after(Actions.removeActor()));
-                    LevelScreen.entities.removeValue(solid,true);
-                    LevelScreen.world.remove(collision.other);
+                    GameStage.entities.removeValue(solid,true);
+                    GameStage.world.remove(collision.other);
                     solid.remove();
                 }
             }else if(collision.other.userData instanceof Springboard){
@@ -230,8 +231,8 @@ public class Koala extends BaseActor {
                 //如果是金币
                 Coin coin = (Coin)collision.other.userData;
                 addCoin(1);
-                LevelScreen.entities.removeValue(coin,true);
-                LevelScreen.world.remove(collision.other);
+                GameStage.entities.removeValue(coin,true);
+                GameStage.world.remove(collision.other);
                 coin.remove();
             }else if(collision.other.userData instanceof Key){
                 //如果是钥匙
@@ -240,8 +241,8 @@ public class Koala extends BaseActor {
                 keyList.add(key.getColor());
                 setKeyColor(key.getColor());
 
-                LevelScreen.entities.removeValue(key,true);
-                LevelScreen.world.remove(collision.other);
+                GameStage.entities.removeValue(key,true);
+                GameStage.world.remove(collision.other);
                 key.remove();
             }else if(collision.other.userData instanceof Flag){
                 setWin(true);
@@ -249,8 +250,8 @@ public class Koala extends BaseActor {
             }else if(collision.other.userData instanceof Timer){
                 Timer timer = (Timer) collision.other.userData;
                 gameLeftTime += 20;
-                LevelScreen.entities.removeValue(timer,false);
-                LevelScreen.world.remove(collision.other);
+                GameStage.entities.removeValue(timer,false);
+                GameStage.world.remove(collision.other);
                 timer.remove();
 
             }
@@ -259,7 +260,7 @@ public class Koala extends BaseActor {
         }
 
         //根据碰撞，更新位置
-        Rect rect = LevelScreen.world.getRect(item);
+        Rect rect = GameStage.world.getRect(item);
         if(rect != null){
             setX(rect.x-bboxX);
             setY(rect.y-bboxY);
@@ -281,7 +282,7 @@ public class Koala extends BaseActor {
         // 使用shapedrawer绘制图形
         if( region != null && drawer != null){
             drawer.setColor(1,0,0,1);
-            Rect rect = LevelScreen.world.getRect(item);
+            Rect rect = GameStage.world.getRect(item);
             drawer.rectangle(rect.x, rect.y, rect.w, rect.h);
             //drawer.line(0,0,300,300);
             //drawer.setColor(Color.BROWN);
@@ -306,7 +307,7 @@ public class Koala extends BaseActor {
             }
         }*/
 
-        Response.Result result = LevelScreen.world.move(item, getX() + bboxX, getY() + bboxY, PLAYER_COLLISION_FILTER);
+        Response.Result result = GameStage.world.move(item, getX() + bboxX, getY() + bboxY, PLAYER_COLLISION_FILTER);
         for (int i = 0; i < result.projectedCollisions.size(); i++){
             Collision collision = result.projectedCollisions.get(i);
             if (collision.other.userData instanceof Solid){
