@@ -279,6 +279,7 @@ public class Koala extends BaseActor {
     public void draw(Batch batch, float parentAlpha) {
         super.draw(batch, parentAlpha);
 
+        /**
         // 使用shapedrawer绘制图形
         if( region != null && drawer != null){
             drawer.setColor(1,0,0,1);
@@ -288,7 +289,7 @@ public class Koala extends BaseActor {
             //drawer.setColor(Color.BROWN);
            // drawer.line(350,250,490,780);
             //drawer.polygon(polygon_vertices);
-        }
+        }*/
     }
 
     //判断koala是否站在solid物体上,不仅仅需要判断两者是否相碰撞，还需要判断belowsensor 物体是否在solid 类型物体之上，否则会出错

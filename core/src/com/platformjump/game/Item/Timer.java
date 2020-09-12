@@ -48,12 +48,13 @@ public class Timer extends BaseActor {
     public void draw(Batch batch, float parentAlpha) {
         super.draw(batch, parentAlpha);
 
+        /**
         // 使用shapedrawer绘制图形
         if (region != null && drawer != null) {
             drawer.setColor(1, 0, 0, 1);
             Rect rect = GameStage.world.getRect(item);
             if(rect !=null)
                 drawer.rectangle(rect.x, rect.y, rect.w, rect.h);
-        }
+        }*/
     }
 }
