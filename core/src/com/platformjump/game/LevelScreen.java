@@ -26,7 +26,8 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 
-//TODO 需要重构代码，将UI逻辑和游戏逻辑分开，分别在不同的舞台中实现
+//TODO 需要重构代码，将UI逻辑和游戏逻辑分开，分别在不同的舞台中实现-------->已经实现
+//TODO 需要为游戏添加更多的特性，如添加一些enemy,这就涉及到AI的问题；如何为游戏添加特效；如何实现背景屏幕移动；如何添加一些可以与玩家进行互动的道具；等等
 public class LevelScreen extends BaseScreen {
     public  static final String TAG = LevelScreen.class.getSimpleName();
     protected TextureRegion region;
