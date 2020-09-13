@@ -20,11 +20,14 @@ public class BaseGameStage extends BaseStage{
 
     public BaseGameStage(platformjump mainGame) {
         super(mainGame);
+        System.out.println("BaseGameStage constructor()");
+        //由于GameStage类中也有init()方法，在调用的时候，会用GameStage类中的init()方法覆盖该类中的init()方法
+        init();
     }
 
-    @Override
     public void init(){
         //super.init();
+        System.out.println("BaseGameStage init()\n");
         entities = new SnapshotArray<>();
         world = new World<>(TILE_DIMENSION);
 

@@ -24,10 +24,11 @@ public abstract class BaseStage extends Stage {
         //FIXME 这里有个问题就是关于init()函数调用的问题，在其子类中的构造函数中调用init()会导致的问题是？？？后续需要理清这个问题！！！
         //为什么这里加上init()就会出错，并且会调用GameStage类中的init()???
         //this.init();
+        System.out.println("BaseStage constructor\n");
     }
 
 
-    public abstract void init();
+    //public abstract void init();
 
     public boolean isVisible() {
         return visible;

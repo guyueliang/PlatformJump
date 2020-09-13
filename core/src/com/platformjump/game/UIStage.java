@@ -33,7 +33,7 @@ public class UIStage extends BaseStage {
         init();
     }
 
-    @Override
+
     public void init(){
 
         //ui设置

@@ -38,7 +38,8 @@ public class GameStage extends BaseGameStage {
     public GameStage(platformjump mainGame) {
         super(mainGame);
         //这个init()可以去掉，因为在其父类BaseStage的构造函数中已经调用init()函数了
-        init();
+        System.out.println("GameStage constructor\n");
+        //init();
 
 
     }
@@ -48,7 +49,10 @@ public class GameStage extends BaseGameStage {
 
     @Override
     public void init(){
+
         super.init();
+        System.out.println("GameStage init()\n");
+
         Gdx.app.setLogLevel(Application.LOG_DEBUG);
         tma = new TilemapActor("myMap.tmx",this);
 
