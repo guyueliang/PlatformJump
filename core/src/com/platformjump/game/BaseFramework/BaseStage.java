@@ -2,6 +2,7 @@ package com.platformjump.game.BaseFramework;
 
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.SnapshotArray;
+import com.badlogic.gdx.utils.viewport.Viewport;
 import com.dongbat.jbump.World;
 import com.platformjump.game.GameStage;
 import com.platformjump.game.Item.TilemapActor;
@@ -19,6 +20,17 @@ public abstract class BaseStage extends Stage {
     //public  static final String TAG = GameStage.class.getSimpleName();
 
     public BaseStage(platformjump mainGame){
+        super();
+        visible = true;
+        this.mainGame = mainGame;
+        //FIXME 这里有个问题就是关于init()函数调用的问题，在其子类中的构造函数中调用init()会导致的问题是？？？后续需要理清这个问题！！！
+        //为什么这里加上init()就会出错，并且会调用GameStage类中的init()???
+        //this.init();
+        System.out.println("BaseStage constructor\n");
+    }
+
+    public BaseStage(platformjump mainGame, Viewport viewport){
+        super(viewport);
         visible = true;
         this.mainGame = mainGame;
         //FIXME 这里有个问题就是关于init()函数调用的问题，在其子类中的构造函数中调用init()会导致的问题是？？？后续需要理清这个问题！！！

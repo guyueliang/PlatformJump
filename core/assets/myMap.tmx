@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.1" orientation="orthogonal" renderorder="right-down" width="50" height="20" tilewidth="32" tileheight="32" infinite="0" nextlayerid="4" nextobjectid="168">
+<map version="1.2" tiledversion="1.2.1" orientation="orthogonal" renderorder="right-down" width="60" height="34" tilewidth="32" tileheight="32" infinite="0" nextlayerid="5" nextobjectid="168">
  <tileset firstgid="1" name="platform-tileset" tilewidth="32" tileheight="32" tilecount="18" columns="6">
   <image source="platform-tileset.png" width="192" height="96"/>
  </tileset>
@@ -44,11 +44,11 @@
   </tile>
  </tileset>
  <imagelayer id="2" name="图像图层 1">
-  <image source="background.png" width="1600" height="640"/>
+  <image source="browse.jpg" width="1920" height="1080"/>
  </imagelayer>
- <layer id="1" name="块层 1" width="50" height="20">
+ <layer id="4" name="块层 1" width="60" height="34">
   <data encoding="base64" compression="zlib">
-   eJzt1csKABAURVGJGPH/f4uZ5JZXkvaqM5PH7RSlAGCfEwKMoj+4hZ5BYnLswf3o2XnSPFdm7Kvc1nvHa30JA2va+87+5eWMKGSW/iQJB1IB4w==
+   eJzt1kEKgCAQBVCJolZ1/9tWiyAiQaNgkvfg70QZ5i9MCYDDmAlEp7e0Tr+Jpt8yvHiffseX28+TnU2nRHU37197Ohecuc5V+7fa31gy+UrXSAAAAKizAidAAeM=
   </data>
  </layer>
  <objectgroup id="3" name="对象层 1">

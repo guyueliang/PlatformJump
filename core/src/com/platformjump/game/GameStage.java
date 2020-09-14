@@ -7,6 +7,7 @@ import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.SnapshotArray;
+import com.badlogic.gdx.utils.viewport.Viewport;
 import com.dongbat.jbump.World;
 import com.platformjump.game.BaseFramework.BaseActor;
 import com.platformjump.game.BaseFramework.BaseGame;
@@ -35,8 +36,8 @@ public class GameStage extends BaseGameStage {
     public  static final String TAG = GameStage.class.getSimpleName();
 
     private int count = 0;
-    public GameStage(platformjump mainGame) {
-        super(mainGame);
+    public GameStage(platformjump mainGame, Viewport v) {
+        super(mainGame,v);
         //这个init()可以去掉，因为在其父类BaseStage的构造函数中已经调用init()函数了
         System.out.println("GameStage constructor\n");
         //init();

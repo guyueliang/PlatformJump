@@ -13,6 +13,7 @@ import com.badlogic.gdx.maps.tiled.objects.TiledMapTileMapObject;
 import com.badlogic.gdx.maps.tiled.renderers.OrthoCachedTiledMapRenderer;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.utils.viewport.Viewport;
 import com.platformjump.game.BaseFramework.BaseActor;
 
 import java.util.ArrayList;
@@ -46,19 +47,44 @@ public class TilemapActor extends Actor {
         //设置世界的边界
         BaseActor.setWorldBounds(mapWidth,mapHeight);
 
-        tiledMapRenderer = new OrthoCachedTiledMapRenderer(tiledMap);
+        tiledMapRenderer = new OrthoCachedTiledMapRenderer(tiledMap,1.0f);
         tiledMapRenderer.setBlending(true);
         tiledCamera = new OrthographicCamera();
-        tiledCamera.setToOrtho(false,windowWidth,windowHeight);
-        tiledCamera.update();
+
+        /**
+        Viewport v = getStage().getViewport();
+        int w = v.getScreenWidth();
+        int h = v.getScreenHeight();
+        tiledCamera.viewportWidth = w;
+        tiledCamera.viewportHeight = h;
+
+        tiledCamera.setToOrtho(false,w,h);
+        tiledCamera.update();*/
 
         theStage.addActor(this);
+
+        Viewport v = getStage().getViewport();
+        int w = v.getScreenWidth();
+        int h = v.getScreenHeight();
+        tiledCamera.viewportWidth = w;
+        tiledCamera.viewportHeight = h;
+
+        tiledCamera.setToOrtho(false,w,h);
+        tiledCamera.update();
+
 
     }
 
     @Override
     public void act(float delta) {
         super.act(delta);
+        Viewport v = getStage().getViewport();
+        int w = v.getScreenWidth();
+        int h = v.getScreenHeight();
+        tiledCamera.viewportWidth = w;
+        tiledCamera.viewportHeight = h;
+        tiledCamera.update();
+
     }
 
     @Override
@@ -69,7 +95,11 @@ public class TilemapActor extends Actor {
         tiledCamera.position.y = mainCamera.position.y;
 
         tiledCamera.update();
+
         tiledMapRenderer.setView(tiledCamera);
+
+        //tiledMapRenderer使用和stage一样的camera就可以解决缩放窗口导致的问题了，就是两者一定要同步才行~~
+        tiledMapRenderer.setView((OrthographicCamera) mainCamera);
 
         batch.end();
         tiledMapRenderer.render();
