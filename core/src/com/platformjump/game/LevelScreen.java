@@ -2,6 +2,7 @@ package com.platformjump.game;
 
 import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
@@ -76,18 +77,33 @@ public class LevelScreen extends BaseScreen {
         super.render(dt);
 
 
+
         mainStage.getBatch().begin();
-        for(BaseActor actor : mainStage.getEntities()){
+        for(BaseActor actor : mainGame.getEntities()){
             Item item = actor.item;
             // 使用shapedrawer绘制图形
             if (region != null && drawer != null) {
                 drawer.setColor(1, 0, 0, 1);
-                Rect rect = mainStage.getWorld().getRect(item);
+                Rect rect = mainGame.getWorld().getRect(item);
                 if(rect !=null)
                     drawer.rectangle(rect.x, rect.y, rect.w, rect.h);
             }
         }
         mainStage.getBatch().end();
+
+    }
+
+
+    @Override
+    public boolean keyDown(int keycode) {
+        if(keycode == Input.Keys.F10){
+            mainGame.setScreen(new LevelScreen(this.mainGame));
+
+            return true;
+
+        }
+
+        return false;
 
     }
 }

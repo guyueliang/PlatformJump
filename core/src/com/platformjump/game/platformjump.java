@@ -8,4 +8,7 @@ public class platformjump extends BaseGame {
         super.create();
         setActiveScreen(new LevelScreen(this));
     }
+
+
+
 }

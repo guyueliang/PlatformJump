@@ -11,6 +11,8 @@ import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
+import com.badlogic.gdx.utils.SnapshotArray;
+import com.dongbat.jbump.World;
 
 
 public abstract class BaseGame extends Game {
@@ -20,6 +22,10 @@ public abstract class BaseGame extends Game {
     public static TextButton.TextButtonStyle textButtonStyle;
 
     private static BaseGame game;
+
+    protected SnapshotArray<BaseActor> entities;
+    protected World<BaseActor> world;
+    private  float TILE_DIMENSION = 64f;
 
     //好奇怪的用法
     //似乎是单例模式
@@ -54,7 +60,7 @@ public abstract class BaseGame extends Game {
 
         //使用ttf字体库
         FreeTypeFontGenerator fontGenerator =
-                new FreeTypeFontGenerator(Gdx.files.internal("IPix.ttf"));
+                new FreeTypeFontGenerator(Gdx.files.internal("OpenSans.ttf"));
 
         //定义字体参数
         FreeTypeFontGenerator.FreeTypeFontParameter fontParameter =
@@ -82,6 +88,18 @@ public abstract class BaseGame extends Game {
         textButtonStyle.fontColor = Color.GRAY;
 
 
+        entities = new SnapshotArray<>();
+        world = new World<>(TILE_DIMENSION);
+
+
+    }
+
+    public SnapshotArray<BaseActor> getEntities() {
+        return entities;
+    }
+
+    public World<BaseActor> getWorld() {
+        return world;
     }
 
 }

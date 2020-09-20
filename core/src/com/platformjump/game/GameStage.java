@@ -78,6 +78,7 @@ public class GameStage extends BaseGameStage {
         objClass.add(Lock.class);
         objClass.add(Key.class);
         objClass.add(Platform.class);
+        objClass.add(Box_1.class);
 
         //创建不同类型的物体以及player
         for(Class cls : objClass){
@@ -98,10 +99,6 @@ public class GameStage extends BaseGameStage {
 
         jack.toFront();
 
-        jack.setEntities(getEntities());
-        jack.setWorld(getWorld());
-
-        int count = world.countItems();
 
     }
 
@@ -128,7 +125,12 @@ public class GameStage extends BaseGameStage {
             mapObj = tma.getRectangleList(s);
 
         }else {
-            paramTypes = new Class[]{float.class, float.class, BaseStage.class};
+            if(s.equals("Box_1")){
+                paramTypes = new Class[]{float.class,float.class,BaseGameStage.class};
+            }else{
+                paramTypes = new Class[]{float.class, float.class, BaseStage.class};
+            }
+
             //其他类型的物体是用tile表示的
             mapObj = tma.getTitleList(s);
         }
@@ -165,9 +167,8 @@ public class GameStage extends BaseGameStage {
                 jack = (Koala) actor;
             }
 
-            entities.add(actor);
-            world.add(actor.item,actor.getX()+actor.bboxX,actor.getY()+actor.bboxY, actor.bboxWidth, actor.bboxHeight);
-
+            mainGame.getEntities().add(actor);
+            mainGame.getWorld().add(actor.item,actor.getX()+actor.bboxX,actor.getY()+actor.bboxY, actor.bboxWidth, actor.bboxHeight);
 
 
             //for debug
@@ -192,6 +193,8 @@ public class GameStage extends BaseGameStage {
 
             }else if(actor instanceof Koala){
                 Gdx.app.log(TAG,"creatObj() has created a Koala obj");
+            }else if(actor instanceof Box_1){
+                Gdx.app.log(TAG,"creatObj() has created a Box_1 obj");
             }
 
         }

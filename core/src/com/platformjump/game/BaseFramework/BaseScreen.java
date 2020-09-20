@@ -20,7 +20,7 @@ public abstract class BaseScreen implements Screen, InputProcessor {
     protected GameStage mainStage;
     protected UIStage uiStage;
    // protected Table uiTable;
-    platformjump mainGame;
+    protected platformjump mainGame;
     private int count = 0;
     private Viewport viewport;
 

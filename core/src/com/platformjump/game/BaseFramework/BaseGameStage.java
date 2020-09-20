@@ -13,9 +13,7 @@ import java.util.ArrayList;
 public class BaseGameStage extends BaseStage{
 
     protected Koala jack;
-    protected SnapshotArray<BaseActor> entities;
-    protected World<BaseActor> world;
-    private  float TILE_DIMENSION = 64f;
+
 
     protected TilemapActor tma;
     protected ArrayList<Class<? extends BaseActor>> objClass;
@@ -30,8 +28,13 @@ public class BaseGameStage extends BaseStage{
     public void init(){
         //super.init();
         System.out.println("BaseGameStage init()\n");
-        entities = new SnapshotArray<>();
-        world = new World<>(TILE_DIMENSION);
+        for(BaseActor actor : getMainGame().entities){
+            if(actor != null){
+                getMainGame().world.remove(actor.item);
+            }
+        }
+        getMainGame().entities.clear();
+
 
         //tma = new TilemapActor("myMap.tmx",this);
 
@@ -39,13 +42,7 @@ public class BaseGameStage extends BaseStage{
     }
 
 
-    public SnapshotArray<BaseActor> getEntities() {
-        return entities;
-    }
 
-    public World<BaseActor> getWorld() {
-        return world;
-    }
 
     public Koala getJack() {
         return jack;

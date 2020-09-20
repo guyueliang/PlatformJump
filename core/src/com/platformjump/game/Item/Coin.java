@@ -51,4 +51,10 @@ public class Coin extends BaseActor {
                 drawer.rectangle(rect.x, rect.y, rect.w, rect.h);
         }*/
     }
+
+    @Override
+    public void act(float delta) {
+        super.act(delta);
+        //System.out.println("just test group act() mehtod!!" );
+    }
 }
