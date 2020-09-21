@@ -50,9 +50,27 @@ public class Box_1 extends BaseGameActor {
             baseGameStage.getMainGame().getWorld().remove(item);
 
 
-            Apple apple = new Apple(getX()+getWidth()/2,getY()+getHeight()/2,baseGameStage);
+            Apple apple = new Apple(getX()+getWidth()/2+20,getY()+getHeight()/2,baseGameStage);
             baseGameStage.getMainGame().getWorld().add(apple.item, apple.getX()+bboxX, apple.getY()+bboxY, apple.bboxWidth, apple.bboxHeight);
             baseGameStage.getMainGame().getEntities().add(apple);
+
+            Box1_Breaks box1_breaks = new Box1_Breaks(getX(),getY(),baseGameStage);
+            Box1_Breaks box1_breaks1 = new Box1_Breaks(getX()+10,getY()-5,baseGameStage);
+            Box1_Breaks box1_breaks2 = new Box1_Breaks(getX()-10,getY()+5,baseGameStage);
+            Box1_Breaks box1_breaks3 = new Box1_Breaks(getX()+5,getY()+10,baseGameStage);
+
+            baseGameStage.getMainGame().getWorld().add(box1_breaks.item, box1_breaks.getX()+bboxX, box1_breaks.getY()+bboxY, box1_breaks.bboxWidth, box1_breaks.bboxHeight);
+            baseGameStage.getMainGame().getEntities().add(box1_breaks);
+
+            baseGameStage.getMainGame().getWorld().add(box1_breaks1.item, box1_breaks1.getX()+bboxX, box1_breaks1.getY()+bboxY, box1_breaks1.bboxWidth, box1_breaks1.bboxHeight);
+            baseGameStage.getMainGame().getEntities().add(box1_breaks1);
+
+            baseGameStage.getMainGame().getWorld().add(box1_breaks2.item, box1_breaks2.getX()+bboxX, box1_breaks2.getY()+bboxY, box1_breaks2.bboxWidth, box1_breaks2.bboxHeight);
+           baseGameStage.getMainGame().getEntities().add(box1_breaks2);
+
+           baseGameStage.getMainGame().getWorld().add(box1_breaks3.item, box1_breaks3.getX()+bboxX, box1_breaks3.getY()+bboxY, box1_breaks3.bboxWidth, box1_breaks3.bboxHeight);
+           baseGameStage.getMainGame().getEntities().add(box1_breaks3);
+
 
 
             remove();

@@ -149,6 +149,7 @@ public class BaseActor extends Group {
 
 
 
+
         super.draw(batch, parentAlpha);
     }
 

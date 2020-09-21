@@ -287,6 +287,7 @@ public class Koala extends BaseGameActor {
                 Apple apple = (Apple)collision.other.userData;
                 baseGameStage.getMainGame().getWorld().remove(apple.item);
                 baseGameStage.getMainGame().getEntities().removeValue(apple,true);
+                new Collected(apple.getX(),apple.getY(),baseGameStage);
                 //apple.removeActor(apple);
                 apple.remove();
             }

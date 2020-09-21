@@ -33,6 +33,7 @@ public class LevelScreen extends BaseScreen {
     public  static final String TAG = LevelScreen.class.getSimpleName();
     protected TextureRegion region;
     protected ShapeDrawer drawer;
+    private boolean debug = false;
 
     public LevelScreen(platformjump mainGame) {
         super(mainGame);
@@ -78,18 +79,21 @@ public class LevelScreen extends BaseScreen {
 
 
 
-        mainStage.getBatch().begin();
-        for(BaseActor actor : mainGame.getEntities()){
-            Item item = actor.item;
-            // 使用shapedrawer绘制图形
-            if (region != null && drawer != null) {
-                drawer.setColor(1, 0, 0, 1);
-                Rect rect = mainGame.getWorld().getRect(item);
-                if(rect !=null)
-                    drawer.rectangle(rect.x, rect.y, rect.w, rect.h);
+        if(debug) {
+
+            mainStage.getBatch().begin();
+            for (BaseActor actor : mainGame.getEntities()) {
+                Item item = actor.item;
+                // 使用shapedrawer绘制图形
+                if (region != null && drawer != null) {
+                    drawer.setColor(1, 0, 0, 1);
+                    Rect rect = mainGame.getWorld().getRect(item);
+                    if (rect != null)
+                        drawer.rectangle(rect.x, rect.y, rect.w, rect.h);
+                }
             }
+            mainStage.getBatch().end();
         }
-        mainStage.getBatch().end();
 
     }
 
