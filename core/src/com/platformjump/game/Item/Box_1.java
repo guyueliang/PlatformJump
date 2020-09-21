@@ -6,6 +6,7 @@ import com.platformjump.game.BaseFramework.BaseActor;
 import com.platformjump.game.BaseFramework.BaseGameActor;
 import com.platformjump.game.BaseFramework.BaseGameStage;
 
+
 public class Box_1 extends BaseGameActor {
     private Animation Idle;
     private Animation Hit;
@@ -50,9 +51,35 @@ public class Box_1 extends BaseGameActor {
             baseGameStage.getMainGame().getWorld().remove(item);
 
 
-            Apple apple = new Apple(getX()+getWidth()/2+20,getY()+getHeight()/2,baseGameStage);
-            baseGameStage.getMainGame().getWorld().add(apple.item, apple.getX()+bboxX, apple.getY()+bboxY, apple.bboxWidth, apple.bboxHeight);
-            baseGameStage.getMainGame().getEntities().add(apple);
+            Cherries cherries = new Cherries(getX()+getWidth()/2+5,getY()+getHeight()/2-5,baseGameStage);
+            baseGameStage.getMainGame().getWorld().add(cherries.item, cherries.getX()+bboxX, cherries.getY()+bboxY, cherries.bboxWidth, cherries.bboxHeight);
+            baseGameStage.getMainGame().getEntities().add(cherries);
+
+            Orange orange = new Orange(getX()+getWidth()/2+5,getY()+getHeight()/2-5,baseGameStage);
+            baseGameStage.getMainGame().getWorld().add(orange.item, orange.getX()+bboxX, orange.getY()+bboxY, orange.bboxWidth, orange.bboxHeight);
+            baseGameStage.getMainGame().getEntities().add(orange);
+
+            Strawberry strawberry = new Strawberry(getX()+getWidth()/2+5,getY()+getHeight()/2-5,baseGameStage);
+            baseGameStage.getMainGame().getWorld().add(strawberry.item, strawberry.getX()+bboxX, strawberry.getY()+bboxY, strawberry.bboxWidth, strawberry.bboxHeight);
+            baseGameStage.getMainGame().getEntities().add(strawberry);
+
+            Kiwi kiwi = new Kiwi(getX()+getWidth()/2+5,getY()+getHeight()/2-5,baseGameStage);
+            baseGameStage.getMainGame().getWorld().add(kiwi.item, kiwi.getX()+bboxX, kiwi.getY()+bboxY, kiwi.bboxWidth, kiwi.bboxHeight);
+            baseGameStage.getMainGame().getEntities().add(kiwi);
+
+            Melon melon = new Melon(getX()+getWidth()/2+10,getY()+getHeight()/2+10,baseGameStage);
+            baseGameStage.getMainGame().getWorld().add(melon.item, melon.getX()+bboxX, melon.getY()+bboxY, melon.bboxWidth, melon.bboxHeight);
+            baseGameStage.getMainGame().getEntities().add(melon);
+
+
+            Apple apple_ = new Apple(getX()+getWidth()/2+20,getY()+getHeight()/2+20,baseGameStage);
+            baseGameStage.getMainGame().getWorld().add(apple_.item, apple_.getX()+bboxX, apple_.getY()+bboxY, apple_.bboxWidth, apple_.bboxHeight);
+            baseGameStage.getMainGame().getEntities().add(apple_);
+
+
+            Banana banana = new Banana(getX()+getWidth()/2-10,getY()+getHeight()/2-10,baseGameStage);
+            baseGameStage.getMainGame().getWorld().add(banana.item, banana.getX()+bboxX, banana.getY()+bboxY, banana.bboxWidth, banana.bboxHeight);
+            baseGameStage.getMainGame().getEntities().add(banana);
 
             Box1_Breaks box1_breaks = new Box1_Breaks(getX(),getY(),baseGameStage);
             Box1_Breaks box1_breaks1 = new Box1_Breaks(getX()+10,getY()-5,baseGameStage);

@@ -9,17 +9,12 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
-import com.badlogic.gdx.utils.SnapshotArray;
 import com.dongbat.jbump.*;
 import com.platformjump.game.BaseFramework.BaseActor;
 import com.platformjump.game.BaseFramework.BaseGameActor;
 import com.platformjump.game.BaseFramework.BaseGameStage;
-import com.platformjump.game.BaseFramework.BaseStage;
-import com.platformjump.game.GameStage;
 import com.platformjump.game.Item.*;
-import com.platformjump.game.LevelScreen;
 import com.platformjump.game.Utils.Utils;
 import space.earlygrey.shapedrawer.ShapeDrawer;
 
@@ -283,13 +278,13 @@ public class Koala extends BaseGameActor {
                     }
 
 
-            }else if(collision.other.userData instanceof Apple){
-                Apple apple = (Apple)collision.other.userData;
-                baseGameStage.getMainGame().getWorld().remove(apple.item);
-                baseGameStage.getMainGame().getEntities().removeValue(apple,true);
-                new Collected(apple.getX(),apple.getY(),baseGameStage);
+            }else if(collision.other.userData instanceof Fruit){
+                Fruit fruit = (Fruit)collision.other.userData;
+                baseGameStage.getMainGame().getWorld().remove(fruit.item);
+                baseGameStage.getMainGame().getEntities().removeValue(fruit,true);
+                new Collected(fruit.getX(), fruit.getY(),baseGameStage);
                 //apple.removeActor(apple);
-                apple.remove();
+                fruit.remove();
             }
 
 
@@ -473,7 +468,7 @@ public class Koala extends BaseGameActor {
                 return Response.cross;
             }else if(other.userData instanceof Box_1){
                     return Response.slide;
-            }else if(other.userData instanceof Apple){
+            }else if(other.userData instanceof Fruit){
                 return  Response.cross;
             }
 
