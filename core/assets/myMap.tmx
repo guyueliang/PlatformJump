@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.1" orientation="orthogonal" renderorder="right-down" width="60" height="34" tilewidth="32" tileheight="32" infinite="0" nextlayerid="5" nextobjectid="306">
+<map version="1.2" tiledversion="1.2.1" orientation="orthogonal" renderorder="right-down" width="60" height="34" tilewidth="32" tileheight="32" infinite="0" nextlayerid="5" nextobjectid="312">
  <tileset firstgid="1" name="platform-tileset" tilewidth="32" tileheight="32" tilecount="18" columns="6">
   <image source="platform-tileset.png" width="192" height="96"/>
  </tileset>
@@ -51,12 +51,20 @@
    </properties>
   </tile>
  </tileset>
+ <tileset firstgid="27" name="Idle2" tilewidth="28" tileheight="24" tilecount="1" columns="1">
+  <image source="Boxes/Box2/Idle.png" width="28" height="24"/>
+  <tile id="0">
+   <properties>
+    <property name="name" value="Box_2"/>
+   </properties>
+  </tile>
+ </tileset>
  <imagelayer id="2" name="图像图层 1">
   <image source="browse.jpg" width="1920" height="1080"/>
  </imagelayer>
  <layer id="4" name="块层 1" width="60" height="34">
   <data encoding="base64" compression="zlib">
-   eJzt190KgCAMhmHthzqq+7/b6iAIcWiROOf7wHeW1dgwcw4AcFuEANoxt7CO+YY205n5x/sx3/pJ/fnSs/URrWL1tjqnW8Y1YV1vz1bXM3YhpQxCfCLSuloB0LYxEV/v1Yrobd+iXru0fodzzw+pvSeMVhp7UIqlWq2fcVutpbf/kQNh4gJw
+   eJzt190KgCAMhmHthzqq+7/b6iAIYViSuM33ge9QazhshQAAuC1CAO3oW3hHf0Ob6cz84370t10lZ7Y+YonVPt0K1nydra5n7EJqGYTETKR1rQLAtjGT2O7Vqujt3qJev7R+h9/OD7m7J41WGs+gFk+1ep9xrdbS2//IAc6BAkY=
   </data>
  </layer>
  <objectgroup id="3" name="对象层 1">
@@ -367,36 +375,6 @@
    </properties>
   </object>
   <object id="130" x="352" y="448" width="32" height="32">
-   <properties>
-    <property name="name" value="Solid"/>
-   </properties>
-  </object>
-  <object id="131" x="480" y="512" width="32" height="32">
-   <properties>
-    <property name="name" value="Solid"/>
-   </properties>
-  </object>
-  <object id="132" x="512" y="512" width="32" height="32">
-   <properties>
-    <property name="name" value="Solid"/>
-   </properties>
-  </object>
-  <object id="133" x="480" y="544" width="32" height="32">
-   <properties>
-    <property name="name" value="Solid"/>
-   </properties>
-  </object>
-  <object id="134" x="512" y="544" width="32" height="32">
-   <properties>
-    <property name="name" value="Solid"/>
-   </properties>
-  </object>
-  <object id="135" x="480" y="576" width="32" height="32">
-   <properties>
-    <property name="name" value="Solid"/>
-   </properties>
-  </object>
-  <object id="136" x="512" y="576" width="32" height="32">
    <properties>
     <property name="name" value="Solid"/>
    </properties>
@@ -910,5 +888,30 @@
   <object id="298" gid="23" x="576" y="896" width="32" height="32"/>
   <object id="301" gid="26" x="320" y="512" width="28" height="24"/>
   <object id="302" gid="26" x="352" y="512" width="28" height="24"/>
+  <object id="306" gid="27" x="448" y="544" width="28" height="24">
+   <properties>
+    <property name="name" value="Box_2"/>
+   </properties>
+  </object>
+  <object id="307" gid="27" x="480" y="544" width="28" height="24">
+   <properties>
+    <property name="name" value="Box_2"/>
+   </properties>
+  </object>
+  <object id="308" gid="27" x="512" y="544" width="28" height="24">
+   <properties>
+    <property name="name" value="Box_2"/>
+   </properties>
+  </object>
+  <object id="309" gid="27" x="544" y="512" width="28" height="24">
+   <properties>
+    <property name="name" value="Box_2"/>
+   </properties>
+  </object>
+  <object id="310" gid="27" x="384" y="512" width="28" height="24">
+   <properties>
+    <property name="name" value="Box_2"/>
+   </properties>
+  </object>
  </objectgroup>
 </map>

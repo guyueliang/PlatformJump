@@ -285,6 +285,47 @@ public class Koala extends BaseGameActor {
                 new Collected(fruit.getX(), fruit.getY(),baseGameStage);
                 //apple.removeActor(apple);
                 fruit.remove();
+            }else if(collision.other.userData instanceof Box_2){
+                Box_2 box = (Box_2) collision.other.userData;
+                if (collision.normal.x != 0){
+                    velocityVec.x = 0;
+                    box.contactWithPlayer = false;
+
+                }
+
+                if(collision.normal.y != 0){
+
+                    //box.hitCount++;
+                    //hit ceiling or floor
+                    //velocityVec.y = 0;
+                   // jumpTime = JUMP_MAX_TIME;
+
+                    if(collision.normal.y == 1){
+                        if(isFalling()){
+                            box.contactWithPlayer = true;
+                            box.hitCount++;
+                            spring();
+                        }else{
+                            //碰撞到地板
+                            velocityVec.y = 0;
+                            jumpTime = 0f;
+                            jumping = false;
+                            inAir = false;
+                            box.contactWithPlayer = false;
+
+                        }
+
+                    }else if(collision.normal.y == -1){
+                        box.contactWithPlayer = true;
+                        box.hitCount++;
+                        velocityVec.y = 0;
+                        jumpTime = JUMP_MAX_TIME;
+                    }
+
+                }else{
+                    box.contactWithPlayer = false;
+
+                }
             }
 
 
@@ -470,6 +511,8 @@ public class Koala extends BaseGameActor {
                     return Response.slide;
             }else if(other.userData instanceof Fruit){
                 return  Response.cross;
+            }else if(other.userData instanceof Box_2){
+                return Response.slide;
             }
 
             return null;

@@ -33,7 +33,7 @@ public class LevelScreen extends BaseScreen {
     public  static final String TAG = LevelScreen.class.getSimpleName();
     protected TextureRegion region;
     protected ShapeDrawer drawer;
-    private boolean debug = false;
+    private boolean debug = true;
 
     public LevelScreen(platformjump mainGame) {
         super(mainGame);

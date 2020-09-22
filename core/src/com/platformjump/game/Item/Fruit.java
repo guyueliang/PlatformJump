@@ -34,15 +34,20 @@ public class Fruit extends BaseGameActor {
         bboxHeight = 20;
         item = new Item<BaseActor>(this);
 
-        //根据随机数来决定水平方向
         random = new Random();
-        rNum = random.nextInt(2);
+        rNum = random.nextInt(150)+150;
+        int rNum2 = random.nextInt(2);
+        if(rNum2 == 1){
+            rNum *= -1;
+        }
         vec = new Vector2();
+        vec.set(rNum,-150);
+        /**
         if(rNum == 0)
             vec.set(300,-150);
         else if(rNum == 1){
             vec.set(-300,-150);
-        }
+        }*/
 
         horizontalDeceleration = 200;
         //maxHorizontalSpeed = 300;

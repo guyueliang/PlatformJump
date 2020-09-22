@@ -79,6 +79,7 @@ public class GameStage extends BaseGameStage {
         objClass.add(Key.class);
         objClass.add(Platform.class);
         objClass.add(Box_1.class);
+        objClass.add(Box_2.class);
 
         //创建不同类型的物体以及player
         for(Class cls : objClass){
@@ -125,7 +126,7 @@ public class GameStage extends BaseGameStage {
             mapObj = tma.getRectangleList(s);
 
         }else {
-            if(s.equals("Box_1")){
+            if(s.equals("Box_1") || s.equals("Box_2")){
                 paramTypes = new Class[]{float.class,float.class,BaseGameStage.class};
             }else{
                 paramTypes = new Class[]{float.class, float.class, BaseStage.class};
@@ -195,6 +196,8 @@ public class GameStage extends BaseGameStage {
                 Gdx.app.log(TAG,"creatObj() has created a Koala obj");
             }else if(actor instanceof Box_1){
                 Gdx.app.log(TAG,"creatObj() has created a Box_1 obj");
+            }else if(actor instanceof Box_2){
+                Gdx.app.log(TAG,"creatObj() has created a Box_2 obj");
             }
 
         }
