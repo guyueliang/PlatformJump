@@ -367,6 +367,14 @@ public class Koala extends BaseGameActor {
                     box.contactWithPlayer = false;
 
                 }
+            }else if(collision.other.userData instanceof Trampoline){
+                Trampoline trampoline = (Trampoline)collision.other.userData;
+                if(isFalling()){
+                    trampoline.contactWithPlayer = true;
+                    spring();
+
+                } else
+                    trampoline.contactWithPlayer = false;
             }
 
 
@@ -559,6 +567,8 @@ public class Koala extends BaseGameActor {
             }else if(other.userData instanceof Box_2){
                 return Response.slide;
             }else if(other.userData instanceof Box_3){
+                return Response.slide;
+            }else if(other.userData instanceof Trampoline){
                 return Response.slide;
             }
 
