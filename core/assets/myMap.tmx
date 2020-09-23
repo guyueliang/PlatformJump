@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.1" orientation="orthogonal" renderorder="right-down" width="60" height="34" tilewidth="32" tileheight="32" infinite="0" nextlayerid="5" nextobjectid="312">
+<map version="1.2" tiledversion="1.2.1" orientation="orthogonal" renderorder="right-down" width="60" height="34" tilewidth="32" tileheight="32" infinite="0" nextlayerid="5" nextobjectid="316">
  <tileset firstgid="1" name="platform-tileset" tilewidth="32" tileheight="32" tilecount="18" columns="6">
   <image source="platform-tileset.png" width="192" height="96"/>
  </tileset>
@@ -56,6 +56,17 @@
   <tile id="0">
    <properties>
     <property name="name" value="Box_2"/>
+   </properties>
+  </tile>
+ </tileset>
+ <tileset firstgid="28" name="Idle3" tilewidth="28" tileheight="24" tilecount="1" columns="1">
+  <properties>
+   <property name="name" value="Box_3"/>
+  </properties>
+  <image source="Boxes/Box3/Idle.png" width="28" height="24"/>
+  <tile id="0">
+   <properties>
+    <property name="name" value="Box_3"/>
    </properties>
   </tile>
  </tileset>
@@ -911,6 +922,16 @@
   <object id="310" gid="27" x="384" y="512" width="28" height="24">
    <properties>
     <property name="name" value="Box_2"/>
+   </properties>
+  </object>
+  <object id="314" gid="28" x="544" y="544" width="28" height="24">
+   <properties>
+    <property name="name" value="Box_3"/>
+   </properties>
+  </object>
+  <object id="315" gid="28" x="576" y="544" width="28" height="24">
+   <properties>
+    <property name="name" value="Box_3"/>
    </properties>
   </object>
  </objectgroup>

@@ -304,7 +304,48 @@ public class Koala extends BaseGameActor {
                         if(isFalling()){
                             box.contactWithPlayer = true;
                             box.hitCount++;
-                            spring();
+                            boxSpring();
+                        }else{
+                            //碰撞到地板
+                            velocityVec.y = 0;
+                            jumpTime = 0f;
+                            jumping = false;
+                            inAir = false;
+                            box.contactWithPlayer = false;
+
+                        }
+
+                    }else if(collision.normal.y == -1){
+                        box.contactWithPlayer = true;
+                        box.hitCount++;
+                        velocityVec.y = 0;
+                        jumpTime = JUMP_MAX_TIME;
+                    }
+
+                }else{
+                    box.contactWithPlayer = false;
+
+                }
+            }else if(collision.other.userData instanceof Box_3){
+                Box_3 box = (Box_3) collision.other.userData;
+                if (collision.normal.x != 0){
+                    velocityVec.x = 0;
+                    box.contactWithPlayer = false;
+
+                }
+
+                if(collision.normal.y != 0){
+
+                    //box.hitCount++;
+                    //hit ceiling or floor
+                    //velocityVec.y = 0;
+                    // jumpTime = JUMP_MAX_TIME;
+
+                    if(collision.normal.y == 1){
+                        if(isFalling()){
+                            box.contactWithPlayer = true;
+                            box.hitCount++;
+                            boxSpring();
                         }else{
                             //碰撞到地板
                             velocityVec.y = 0;
@@ -413,6 +454,10 @@ public class Koala extends BaseGameActor {
         velocityVec.y = 3.5f*jumpSpeed;
     }
 
+    public void boxSpring(){
+        velocityVec.y = 2.0f*jumpSpeed;
+    }
+
     //判断是否正在向上跳跃
     public boolean isJumping(){
         return (velocityVec.y > 0);
@@ -512,6 +557,8 @@ public class Koala extends BaseGameActor {
             }else if(other.userData instanceof Fruit){
                 return  Response.cross;
             }else if(other.userData instanceof Box_2){
+                return Response.slide;
+            }else if(other.userData instanceof Box_3){
                 return Response.slide;
             }
 
