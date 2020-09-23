@@ -24,7 +24,7 @@ public class Box_2 extends BaseGameActor {
     private Random random;
     private int rNum;
     private  static final int generateFruitNum = 5;
-    private float maxShowTime = 0.4f;
+    private float maxShowTime = 0.35f;
     private float timeCounter = 0.0f;
 
     public final Box_2_CollisionFilter BOX_2_COLLISION_FILTER = new Box_2_CollisionFilter();
@@ -56,6 +56,7 @@ public class Box_2 extends BaseGameActor {
         if(contactWithPlayer ){
             setAnimation(Hit);
             timeCounter += delta;
+            contactWithPlayer = false;
 
             //player每次与box碰撞，box会随机生成一种水果
             rNum = random.nextInt(7);
@@ -152,6 +153,7 @@ public class Box_2 extends BaseGameActor {
             remove();
         }
 
+        /**
         boolean flag = baseGameStage.getMainGame().getWorld().hasItem(this.item);
 
         if(flag) {
@@ -161,7 +163,7 @@ public class Box_2 extends BaseGameActor {
                 contactWithPlayer = false;
             }
 
-        }
+        }*/
 
 
     }

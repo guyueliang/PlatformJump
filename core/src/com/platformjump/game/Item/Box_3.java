@@ -56,6 +56,7 @@ public class Box_3 extends BaseGameActor {
         if(contactWithPlayer ){
             setAnimation(Hit);
             timeCounter += delta;
+            contactWithPlayer = false;
         }
 
         if(timeCounter > 0 && timeCounter <= maxShowTime){
@@ -154,6 +155,7 @@ public class Box_3 extends BaseGameActor {
             remove();
         }
 
+        /**
         boolean flag = baseGameStage.getMainGame().getWorld().hasItem(this.item);
 
         if(flag) {
@@ -163,7 +165,7 @@ public class Box_3 extends BaseGameActor {
                 contactWithPlayer = false;
             }
 
-        }
+        }*/
 
 
     }
