@@ -464,8 +464,25 @@ public class BaseActor extends Group {
         Camera cam = this.getStage().getCamera();
         Viewport v = this.getStage().getViewport();
 
-        //将camera以actor为中心
-        cam.position.set(this.getX()+this.getOriginX(),this.getY()+this.getOriginY(),0);
+        //将camera以actor为中心,这样会使camera晃动
+        //可以使camera与actor的位置保持在100pixel范围内
+        //cam.position.set(this.getX()+this.getOriginX(),this.getY()+this.getOriginY(),0);
+
+        float cam_x = cam.position.x;
+        float cam_y = cam.position.y;
+        float actor_x = this.getX();
+        float actor_y = this.getY();
+        if(Math.abs(cam_x - actor_x) > 100.0f){
+            float tmp = Math.signum(cam_x-actor_x);
+            cam_x += (-1)*tmp*(Math.abs(cam_x - actor_x)-100.0f);
+            cam.position.x = cam_x;
+        }
+
+        if(Math.abs(cam_y - actor_y) > 100.0f){
+            float tmp = Math.signum(cam_y - actor_y);
+            cam_y += (-1)*tmp*(Math.abs(cam_y - actor_y) - 100.0f);
+            cam.position.y = cam_y;
+        }
 
         //将camera的坐标限制在所设置的边界范围内
         cam.position.x = MathUtils.clamp(cam.position.x,
