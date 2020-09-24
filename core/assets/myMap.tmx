@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.1" orientation="orthogonal" renderorder="right-down" width="60" height="34" tilewidth="32" tileheight="32" infinite="0" nextlayerid="10" nextobjectid="330">
+<map version="1.2" tiledversion="1.2.1" orientation="orthogonal" renderorder="right-down" width="60" height="34" tilewidth="32" tileheight="32" infinite="0" nextlayerid="10" nextobjectid="335">
  <tileset firstgid="1" name="platform-tileset" tilewidth="32" tileheight="32" tilecount="18" columns="6">
   <image source="platform-tileset.png" width="192" height="96"/>
  </tileset>
@@ -78,6 +78,14 @@
   <tile id="0">
    <properties>
     <property name="name" value="Trampoline"/>
+   </properties>
+  </tile>
+ </tileset>
+ <tileset firstgid="30" name="Off" tilewidth="24" tileheight="8" tilecount="1" columns="1">
+  <image source="Traps/Fan/Off.png" width="24" height="8"/>
+  <tile id="0">
+   <properties>
+    <property name="name" value="BubbleRegion"/>
    </properties>
   </tile>
  </tileset>
@@ -982,5 +990,10 @@
   </object>
   <object id="328" gid="29" x="640" y="256" width="28" height="28"/>
   <object id="329" gid="29" x="480" y="352" width="28" height="28"/>
+  <object id="330" gid="30" x="64" y="96" width="24" height="8"/>
+  <object id="331" gid="30" x="1312" y="128" width="24" height="8"/>
+  <object id="332" gid="30" x="352" y="96" width="24" height="8"/>
+  <object id="333" gid="30" x="1632" y="128" width="24" height="8"/>
+  <object id="334" gid="30" x="1184" y="128" width="24" height="8"/>
  </objectgroup>
 </map>
