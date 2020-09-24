@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.1" orientation="orthogonal" renderorder="right-down" width="60" height="34" tilewidth="32" tileheight="32" infinite="0" nextlayerid="5" nextobjectid="330">
+<map version="1.2" tiledversion="1.2.1" orientation="orthogonal" renderorder="right-down" width="60" height="34" tilewidth="32" tileheight="32" infinite="0" nextlayerid="10" nextobjectid="330">
  <tileset firstgid="1" name="platform-tileset" tilewidth="32" tileheight="32" tilecount="18" columns="6">
   <image source="platform-tileset.png" width="192" height="96"/>
  </tileset>
@@ -82,7 +82,22 @@
   </tile>
  </tileset>
  <imagelayer id="2" name="图像图层 1">
-  <image source="browse.jpg" width="1920" height="1080"/>
+  <image source="parallax/img1.png" width="1920" height="1080"/>
+ </imagelayer>
+ <imagelayer id="5" name="图像图层 2">
+  <image source="parallax/img2.png" width="1920" height="1080"/>
+ </imagelayer>
+ <imagelayer id="6" name="图像图层 3">
+  <image source="parallax/img3.png" width="1920" height="1080"/>
+ </imagelayer>
+ <imagelayer id="7" name="图像图层 4">
+  <image source="parallax/img4.png" width="1920" height="1080"/>
+ </imagelayer>
+ <imagelayer id="8" name="图像图层 5">
+  <image source="parallax/img5.png" width="1920" height="1080"/>
+ </imagelayer>
+ <imagelayer id="9" name="图像图层 6">
+  <image source="parallax/img6.png" width="1920" height="1080"/>
  </imagelayer>
  <layer id="4" name="块层 1" width="60" height="34">
   <data encoding="base64" compression="zlib">

@@ -24,10 +24,14 @@ public class TilemapActor extends Actor {
     //窗口尺寸
     private static int windowWidth = 800;
     private static int windowHeight = 600;
+    private float moveVec = 100f;
+    private float offerX;
 
     private TiledMap tiledMap;
     private OrthographicCamera tiledCamera;
     private OrthoCachedTiledMapRenderer tiledMapRenderer;
+    private int[] backgroundLayers = {0,1,2,3,4,5};
+    private int[] tileLayers = {6};
 
     public TilemapActor(String filename, Stage theStage){
         tiledMap = new TmxMapLoader().load(filename);
@@ -85,6 +89,17 @@ public class TilemapActor extends Actor {
         tiledCamera.viewportHeight = h;
         tiledCamera.update();
 
+        offerX += delta*moveVec;
+        offerX %= BaseActor.getWorldBounds().width;
+        if(offerX > 0){
+            offerX -= BaseActor.getWorldBounds().width;
+        }
+        /**
+        offerX %= getStage().getCamera().viewportWidth;
+        if(offerX > 0){
+            offerX -= getStage().getCamera().viewportWidth;
+        }*/
+
     }
 
     @Override
@@ -101,8 +116,33 @@ public class TilemapActor extends Actor {
         //tiledMapRenderer使用和stage一样的camera就可以解决缩放窗口导致的问题了，就是两者一定要同步才行~~
         tiledMapRenderer.setView((OrthographicCamera) mainCamera);
 
+        //背景层移动，需要改变view
+        float tmpx = mainCamera.position.x;
+        mainCamera.position.x += offerX;
+        mainCamera.update();
+        tiledMapRenderer.setView((OrthographicCamera) mainCamera);
         batch.end();
-        tiledMapRenderer.render();
+        tiledMapRenderer.render(backgroundLayers);
+
+        if(Math.abs(offerX) > 0.001F){
+           // mainCamera.position.x = tmpx + mainCamera.viewportWidth + offerX;
+            mainCamera.position.x = tmpx + BaseActor.getWorldBounds().width + offerX;
+            mainCamera.update();
+            tiledMapRenderer.setView((OrthographicCamera) mainCamera);
+            tiledMapRenderer.render(backgroundLayers);
+        }
+
+        //tile层不需要移动，所以view需要恢复之前的值
+        mainCamera.position.x = tmpx;
+        mainCamera.update();
+        tiledMapRenderer.setView((OrthographicCamera) mainCamera);
+        tiledMapRenderer.render(tileLayers);
+
+        /**
+        mainCamera.translate(-9,0,0);
+        mainCamera.update();
+        tiledMapRenderer.setView((OrthographicCamera) mainCamera);
+        tiledMapRenderer.render();*/
         batch.begin();
     }
 

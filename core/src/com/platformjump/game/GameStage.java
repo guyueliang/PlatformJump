@@ -3,9 +3,12 @@ package com.platformjump.game;
 import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.actions.ParallelAction;
+import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.SnapshotArray;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.dongbat.jbump.World;
@@ -55,7 +58,25 @@ public class GameStage extends BaseGameStage {
         System.out.println("GameStage init()\n");
 
         Gdx.app.setLogLevel(Application.LOG_DEBUG);
+
+
+
+
         tma = new TilemapActor("myMap.tmx",this);
+
+        /**
+        //创建可移动的背景
+        Array<Texture> textures = new Array<Texture>();
+        for(int i = 1; i <=6;i++){
+            textures.add(new Texture(Gdx.files.internal("parallax/img"+i+".png")));
+            textures.get(textures.size-1).setWrap(Texture.TextureWrap.MirroredRepeat, Texture.TextureWrap.MirroredRepeat);
+        }
+        ParallaxBackground parallaxBackground = new ParallaxBackground(0,0,textures,this);
+        parallaxBackground.setSize(Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
+        parallaxBackground.setSpeed(1);
+        parallaxBackground.setZIndex(0);
+        parallaxBackground.setBoundaryRectangle();*/
+
 
         count++;
         print();
