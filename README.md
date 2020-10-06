@@ -1,2 +1,2 @@
 # PlatformJump
-Simple platform game using libgdx
+Simple platform game using libgdx framework.
